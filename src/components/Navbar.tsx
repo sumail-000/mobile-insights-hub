@@ -32,13 +32,13 @@ export default function Navbar() {
       <div className="nav-bg shadow-lg">
         <div className="max-w-screen-xl mx-auto px-4 flex items-center gap-4 h-14">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2 shrink-0">
+          <Link to="/" className="flex items-center gap-2 shrink-0">
             <div className="bg-primary rounded px-2 py-1 flex items-center gap-1">
               <Smartphone size={16} className="text-white" />
               <Cpu size={14} className="text-white" />
             </div>
             <span className="text-white font-bold text-xl tracking-tight">PhoneSpecs</span>
-          </a>
+          </Link>
 
           {/* Search bar */}
           <div className="hidden md:flex flex-1 max-w-xl relative mx-4">
