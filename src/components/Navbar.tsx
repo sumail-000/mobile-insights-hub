@@ -5,7 +5,7 @@ import { Search, Menu, X, ChevronDown, Smartphone, Cpu } from "lucide-react";
 const navItems = [
   { label: "Mobiles & Tablets", hasDropdown: true, href: "/" },
   { label: "Top 10", hasDropdown: true, href: "/" },
-  { label: "Compare", hasDropdown: true, href: "/" },
+  { label: "Compare", hasDropdown: false, href: "/compare" },
   { label: "Upcoming Mobiles", hasDropdown: false, href: "/" },
   { label: "News & Reviews", hasDropdown: true, href: "/" },
   { label: "Phone Finder", hasDropdown: false, href: "/phone-finder" },
