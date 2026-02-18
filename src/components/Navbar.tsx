@@ -1,13 +1,15 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Search, Menu, X, ChevronDown, Smartphone, Cpu } from "lucide-react";
 
 const navItems = [
-  { label: "Mobiles & Tablets", hasDropdown: true },
-  { label: "Top 10", hasDropdown: true },
-  { label: "Compare", hasDropdown: true },
-  { label: "Upcoming Mobiles", hasDropdown: false },
-  { label: "News & Reviews", hasDropdown: true },
-  { label: "Brands", hasDropdown: true },
+  { label: "Mobiles & Tablets", hasDropdown: true, href: "/" },
+  { label: "Top 10", hasDropdown: true, href: "/" },
+  { label: "Compare", hasDropdown: true, href: "/" },
+  { label: "Upcoming Mobiles", hasDropdown: false, href: "/" },
+  { label: "News & Reviews", hasDropdown: true, href: "/" },
+  { label: "Phone Finder", hasDropdown: false, href: "/phone-finder" },
+  { label: "Brands", hasDropdown: false, href: "/brands" },
 ];
 
 const latestMobiles = ["Samsung Galaxy S26 Ultra", "Apple iPhone 17e", "Xiaomi 17 Pro Max", "OnePlus 15R"];
