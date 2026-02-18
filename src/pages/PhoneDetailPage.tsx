@@ -175,6 +175,484 @@ const phonesDB: Record<string, PhoneData> = {
       { name: "OnePlus 13", image: oneplusImg, price: "$799", score: 94 },
     ],
   },
+
+  // ─── iPhone 16 Pro Max ──────────────────────────────────────────────────────
+  "iphone-16-pro-max": {
+    id: "iphone-16-pro-max",
+    name: "iPhone 16 Pro Max",
+    brand: "Apple",
+    brandColor: "#555555",
+    image: iphoneImg,
+    bgColor: "#f5f5f5",
+    status: "Available",
+    releaseDate: "September 2024",
+    price: "$1,199",
+    priceINR: "₹1,34,900",
+    score: 96,
+    scoreColor: "high" as const,
+    userRating: 4.8,
+    ratingCount: "8,219",
+    verdict: "The iPhone 16 Pro Max is Apple's most capable iPhone yet. The A18 Pro chip delivers desktop-class performance, the Camera Control button is a genuinely useful hardware addition, and the 5x periscope zoom brings it level with Android's best.",
+    quickSpecs: [
+      { icon: Monitor, label: "Display", value: "6.9\" Super Retina XDR, 120Hz" },
+      { icon: Cpu, label: "Chipset", value: "Apple A18 Pro" },
+      { icon: MemoryStick, label: "RAM", value: "8 GB" },
+      { icon: Camera, label: "Main Camera", value: "48 MP + 48 MP + 12 MP" },
+      { icon: Battery, label: "Battery", value: "4685 mAh, 27W Fast Charge" },
+    ],
+    specTable: [
+      {
+        category: "NETWORK",
+        color: "#E53E3E",
+        rows: [
+          { label: "Technology", value: "GSM / CDMA / HSPA / EVDO / LTE / 5G" },
+          { label: "5G Bands", value: "Sub-6 GHz & mmWave (USA)" },
+        ],
+      },
+      {
+        category: "LAUNCH",
+        color: "#DD6B20",
+        rows: [
+          { label: "Announced", value: "2024, September 9" },
+          { label: "Status", value: "Available. Released 2024, September 20" },
+        ],
+      },
+      {
+        category: "BODY",
+        color: "#38A169",
+        rows: [
+          { label: "Dimensions", value: "163 x 77.6 x 8.25 mm" },
+          { label: "Weight", value: "227 g" },
+          { label: "Build", value: "Glass front (Ceramic Shield), titanium frame, textured matte glass back" },
+          { label: "SIM", value: "Nano-SIM + eSIM (USA: eSIM only)" },
+          { label: "Water Resistance", value: "IP68 (up to 6m for 30 min)" },
+        ],
+      },
+      {
+        category: "DISPLAY",
+        color: "#3182CE",
+        rows: [
+          { label: "Type", value: "LTPO Super Retina XDR OLED, 1-120Hz ProMotion, 2000 nits (peak)" },
+          { label: "Size", value: "6.9 inches, 117.4 cm²" },
+          { label: "Resolution", value: "1320 x 2868 pixels (~460 ppi density)" },
+          { label: "Protection", value: "Ceramic Shield front, scratch-resistant glass back" },
+          { label: "Always-on display", value: "Yes" },
+        ],
+      },
+      {
+        category: "PLATFORM",
+        color: "#805AD5",
+        rows: [
+          { label: "OS", value: "iOS 18, upgradable to iOS 19" },
+          { label: "Chipset", value: "Apple A18 Pro (3 nm)" },
+          { label: "CPU", value: "Hexa-core (2x4.05 GHz Everest + 4x2.42 GHz Sawtooth)" },
+          { label: "GPU", value: "Apple GPU (6-core)" },
+        ],
+      },
+      {
+        category: "MEMORY",
+        color: "#D69E2E",
+        rows: [
+          { label: "Card slot", value: "No" },
+          { label: "Internal", value: "256GB 8GB RAM, 512GB 8GB RAM, 1TB 8GB RAM" },
+          { label: "Storage Type", value: "NVMe" },
+        ],
+      },
+      {
+        category: "MAIN CAMERA",
+        color: "#2B6CB0",
+        rows: [
+          { label: "Triple", value: "48 MP, f/1.8, 24mm (wide), PDAF, sensor-shift OIS 2nd gen\n48 MP, f/2.8, 120mm (5x periscope telephoto), PDAF, OIS\n12 MP, f/2.2, 13mm, 120˚ (ultrawide), AF" },
+          { label: "Camera Control", value: "Dedicated hardware button for quick camera access" },
+          { label: "Features", value: "Dual-LED dual-tone flash, HDR, panorama, AI scene detection" },
+          { label: "Video", value: "4K@120fps (ProRes), 4K@60fps, 1080p@240fps, Cinematic mode" },
+        ],
+      },
+      {
+        category: "SELFIE CAMERA",
+        color: "#C05621",
+        rows: [
+          { label: "Single", value: "12 MP, f/1.9, 23mm (wide), PDAF" },
+          { label: "Features", value: "SL 3D, (biometric sensor)" },
+          { label: "Video", value: "4K@60fps, 1080p@120fps" },
+        ],
+      },
+      {
+        category: "SOUND",
+        color: "#2C7A7B",
+        rows: [
+          { label: "Loudspeaker", value: "Yes, with stereo speakers, spatial audio" },
+          { label: "3.5mm jack", value: "No" },
+          { label: "Audio Features", value: "Dolby Atmos, Dolby Digital, Dolby Digital Plus, Apple Lossless" },
+        ],
+      },
+      {
+        category: "COMMS",
+        color: "#2D3748",
+        rows: [
+          { label: "WLAN", value: "Wi-Fi 802.11 a/b/g/n/ac/6e/7, tri-band, Wi-Fi Direct, MIMO" },
+          { label: "Bluetooth", value: "5.3, A2DP, LE" },
+          { label: "Positioning", value: "GPS, GLONASS, BeiDou, Galileo" },
+          { label: "NFC", value: "Yes (Apple Pay)" },
+          { label: "Infrared port", value: "No" },
+          { label: "USB", value: "USB Type-C 3.2 Gen 2, OTG" },
+          { label: "Satellite", value: "Emergency SOS via satellite" },
+        ],
+      },
+      {
+        category: "FEATURES",
+        color: "#553C9A",
+        rows: [
+          { label: "Face ID", value: "Yes, 3D face recognition" },
+          { label: "Sensors", value: "Face ID, accelerometer, gyro, proximity, barometer, compass, Ultra Wideband" },
+          { label: "Apple Intelligence", value: "Yes, on-device AI features" },
+          { label: "Crash Detection", value: "Yes" },
+        ],
+      },
+      {
+        category: "BATTERY",
+        color: "#276749",
+        rows: [
+          { label: "Type", value: "Li-Ion 4685 mAh, non-removable" },
+          { label: "Charging", value: "27W wired, 50% in 30 min (MagSafe)\n25W MagSafe wireless\n15W Qi2 wireless" },
+          { label: "Battery Life", value: "Up to 33 hours video playback" },
+        ],
+      },
+      {
+        category: "MISC",
+        color: "#744210",
+        rows: [
+          { label: "Colors", value: "Black Titanium, White Titanium, Natural Titanium, Desert Titanium" },
+          { label: "Models", value: "A3293, A3294, A3295, A3296" },
+          { label: "SAR", value: "1.19 W/kg (head), 1.06 W/kg (body)" },
+          { label: "Price", value: "From $1,199 / ₹1,34,900" },
+        ],
+      },
+    ],
+    relatedPhones: [
+      { name: "Samsung Galaxy S25 Ultra", image: samsungImg, price: "$1,199", score: 97 },
+      { name: "iPhone 15 Pro Max", image: iphoneImg, price: "$999", score: 93 },
+      { name: "Google Pixel 9 Pro", image: googleImg, price: "$999", score: 95 },
+      { name: "OnePlus 13", image: oneplusImg, price: "$799", score: 94 },
+    ],
+  },
+
+  // ─── OnePlus 13 ─────────────────────────────────────────────────────────────
+  "oneplus-13": {
+    id: "oneplus-13",
+    name: "OnePlus 13",
+    brand: "OnePlus",
+    brandColor: "#F5010C",
+    image: oneplusImg,
+    bgColor: "#fff0f0",
+    status: "Available",
+    releaseDate: "January 2025",
+    price: "$799",
+    priceINR: "₹69,999",
+    score: 94,
+    scoreColor: "high" as const,
+    userRating: 4.6,
+    ratingCount: "1,874",
+    verdict: "The OnePlus 13 is a powerhouse flagship at a competitive price. Featuring the Snapdragon 8 Elite, a massive 6000 mAh battery with blazing 100W SuperVOOC charging, and a refined Hasselblad camera system, it punches well above its class.",
+    quickSpecs: [
+      { icon: Monitor, label: "Display", value: "6.82\" AMOLED, 120Hz" },
+      { icon: Cpu, label: "Chipset", value: "Snapdragon 8 Elite" },
+      { icon: MemoryStick, label: "RAM", value: "12 GB / 16 GB / 24 GB" },
+      { icon: Camera, label: "Main Camera", value: "50 MP + 50 MP + 50 MP" },
+      { icon: Battery, label: "Battery", value: "6000 mAh, 100W SuperVOOC" },
+    ],
+    specTable: [
+      {
+        category: "NETWORK",
+        color: "#E53E3E",
+        rows: [
+          { label: "Technology", value: "GSM / HSPA / LTE / 5G" },
+          { label: "5G Bands", value: "Sub-6 GHz" },
+        ],
+      },
+      {
+        category: "LAUNCH",
+        color: "#DD6B20",
+        rows: [
+          { label: "Announced", value: "2024, December 31" },
+          { label: "Status", value: "Available. Released 2025, January 7 (China); January 23 (Global)" },
+        ],
+      },
+      {
+        category: "BODY",
+        color: "#38A169",
+        rows: [
+          { label: "Dimensions", value: "162.6 x 76.0 x 8.9 mm" },
+          { label: "Weight", value: "210 g" },
+          { label: "Build", value: "Glass front (Gorilla Glass Victus 2), aluminum frame, glass back" },
+          { label: "SIM", value: "Dual Nano-SIM" },
+          { label: "Water Resistance", value: "IP65 dust/water resistant" },
+        ],
+      },
+      {
+        category: "DISPLAY",
+        color: "#3182CE",
+        rows: [
+          { label: "Type", value: "LTPO AMOLED, 1-120Hz, 4500 nits (peak)" },
+          { label: "Size", value: "6.82 inches, 109.5 cm²" },
+          { label: "Resolution", value: "1440 x 3168 pixels (~510 ppi density)" },
+          { label: "Protection", value: "Corning Gorilla Glass Victus 2" },
+          { label: "Always-on display", value: "Yes" },
+        ],
+      },
+      {
+        category: "PLATFORM",
+        color: "#805AD5",
+        rows: [
+          { label: "OS", value: "Android 15, OxygenOS 15" },
+          { label: "Chipset", value: "Qualcomm SM8750-AB Snapdragon 8 Elite (3 nm)" },
+          { label: "CPU", value: "Octa-core (2x4.32 GHz Oryon V2 & 6x3.53 GHz Oryon V2)" },
+          { label: "GPU", value: "Adreno 830" },
+        ],
+      },
+      {
+        category: "MEMORY",
+        color: "#D69E2E",
+        rows: [
+          { label: "Card slot", value: "No" },
+          { label: "Internal", value: "256GB 12GB RAM, 512GB 16GB RAM, 512GB 24GB RAM" },
+          { label: "Storage Type", value: "UFS 4.0" },
+        ],
+      },
+      {
+        category: "MAIN CAMERA",
+        color: "#2B6CB0",
+        rows: [
+          { label: "Triple (Hasselblad)", value: "50 MP, f/1.6, 23mm (wide), PDAF, OIS\n50 MP, f/2.6, 73mm (3x periscope telephoto), PDAF, OIS\n50 MP, f/2.0, 15mm (ultrawide), PDAF" },
+          { label: "Features", value: "Hasselblad Natural Colour Solution, Dual-LED flash, HDR, panorama" },
+          { label: "Video", value: "4K@60fps, 4K@30fps, 1080p@240fps, 10-bit LOG" },
+        ],
+      },
+      {
+        category: "SELFIE CAMERA",
+        color: "#C05621",
+        rows: [
+          { label: "Single", value: "32 MP, f/2.4, 21mm (wide)" },
+          { label: "Video", value: "4K@30fps, 1080p@30fps" },
+        ],
+      },
+      {
+        category: "SOUND",
+        color: "#2C7A7B",
+        rows: [
+          { label: "Loudspeaker", value: "Yes, with stereo speakers" },
+          { label: "3.5mm jack", value: "No" },
+          { label: "Audio Features", value: "Dolby Atmos, Hi-Res Audio" },
+        ],
+      },
+      {
+        category: "COMMS",
+        color: "#2D3748",
+        rows: [
+          { label: "WLAN", value: "Wi-Fi 802.11 a/b/g/n/ac/6e/7, Wi-Fi Direct" },
+          { label: "Bluetooth", value: "5.4, A2DP, LE, aptX HD, LDAC" },
+          { label: "Positioning", value: "GPS, GLONASS, BeiDou, Galileo" },
+          { label: "NFC", value: "Yes" },
+          { label: "Infrared port", value: "Yes" },
+          { label: "USB", value: "USB Type-C 2.0, OTG" },
+        ],
+      },
+      {
+        category: "FEATURES",
+        color: "#553C9A",
+        rows: [
+          { label: "Sensors", value: "Fingerprint (under display, optical), accelerometer, gyro, proximity, barometer, compass, color spectrum" },
+          { label: "Alert Slider", value: "Yes, 3-position physical mute switch" },
+          { label: "Hasselblad Camera", value: "Yes, professional color calibration" },
+        ],
+      },
+      {
+        category: "BATTERY",
+        color: "#276749",
+        rows: [
+          { label: "Type", value: "Li-Po 6000 mAh, non-removable" },
+          { label: "Charging", value: "100W SuperVOOC wired, 100% in 36 min\n50W AIRVOOC wireless\n10W reverse wireless" },
+          { label: "Battery Life", value: "Up to 34 hours video playback" },
+        ],
+      },
+      {
+        category: "MISC",
+        color: "#744210",
+        rows: [
+          { label: "Colors", value: "Midnight Ocean, Arctic Dawn, Black Eclipse" },
+          { label: "Models", value: "CPH2649, PJD110" },
+          { label: "SAR", value: "0.98 W/kg (head), 1.52 W/kg (body)" },
+          { label: "Price", value: "From $799 / ₹69,999" },
+        ],
+      },
+    ],
+    relatedPhones: [
+      { name: "Samsung Galaxy S25 Ultra", image: samsungImg, price: "$1,199", score: 97 },
+      { name: "iPhone 16 Pro Max", image: iphoneImg, price: "$1,199", score: 96 },
+      { name: "Xiaomi 15 Ultra", image: xiaomiImg, price: "$1,099", score: 98 },
+      { name: "Google Pixel 9 Pro", image: googleImg, price: "$999", score: 95 },
+    ],
+  },
+
+  // ─── Google Pixel 9 Pro ──────────────────────────────────────────────────────
+  "google-pixel-9-pro": {
+    id: "google-pixel-9-pro",
+    name: "Google Pixel 9 Pro",
+    brand: "Google",
+    brandColor: "#4285F4",
+    image: googleImg,
+    bgColor: "#f0f4ff",
+    status: "Available",
+    releaseDate: "August 2024",
+    price: "$999",
+    priceINR: "₹1,09,999",
+    score: 95,
+    scoreColor: "high" as const,
+    userRating: 4.5,
+    ratingCount: "1,633",
+    verdict: "The Pixel 9 Pro is Google's best phone ever. With the in-house Tensor G4 chip powering incredible AI features, a brand-new polished design, and class-leading computational photography, it's the ultimate Android AI phone.",
+    quickSpecs: [
+      { icon: Monitor, label: "Display", value: "6.3\" LTPO OLED, 1-120Hz" },
+      { icon: Cpu, label: "Chipset", value: "Google Tensor G4" },
+      { icon: MemoryStick, label: "RAM", value: "16 GB" },
+      { icon: Camera, label: "Main Camera", value: "50 MP + 48 MP + 48 MP" },
+      { icon: Battery, label: "Battery", value: "4700 mAh, 45W Fast Charge" },
+    ],
+    specTable: [
+      {
+        category: "NETWORK",
+        color: "#E53E3E",
+        rows: [
+          { label: "Technology", value: "GSM / HSPA / LTE / 5G" },
+          { label: "5G Bands", value: "Sub-6 GHz & mmWave" },
+        ],
+      },
+      {
+        category: "LAUNCH",
+        color: "#DD6B20",
+        rows: [
+          { label: "Announced", value: "2024, August 13" },
+          { label: "Status", value: "Available. Released 2024, August 22" },
+        ],
+      },
+      {
+        category: "BODY",
+        color: "#38A169",
+        rows: [
+          { label: "Dimensions", value: "152.8 x 72.0 x 8.5 mm" },
+          { label: "Weight", value: "199 g" },
+          { label: "Build", value: "Corning Gorilla Glass Victus 2 front & back, polished aluminum frame" },
+          { label: "SIM", value: "Nano-SIM + eSIM" },
+          { label: "Water Resistance", value: "IP68 (up to 6m for 30 min)" },
+        ],
+      },
+      {
+        category: "DISPLAY",
+        color: "#3182CE",
+        rows: [
+          { label: "Type", value: "LTPO OLED, 1-120Hz, 3000 nits (peak)" },
+          { label: "Size", value: "6.3 inches, 97.7 cm²" },
+          { label: "Resolution", value: "1280 x 2856 pixels (~495 ppi density)" },
+          { label: "Protection", value: "Corning Gorilla Glass Victus 2" },
+          { label: "Always-on display", value: "Yes" },
+        ],
+      },
+      {
+        category: "PLATFORM",
+        color: "#805AD5",
+        rows: [
+          { label: "OS", value: "Android 14, upgradable to Android 18 (7 years guaranteed)" },
+          { label: "Chipset", value: "Google Tensor G4 (4 nm)" },
+          { label: "CPU", value: "Nona-core (1x3.1 GHz Cortex-X4 & 3x2.6 GHz Cortex-A720 & 4x1.92 GHz Cortex-A520 & 1x1.92 GHz Cortex-A520)" },
+          { label: "GPU", value: "Immortalis-G715s MC10" },
+        ],
+      },
+      {
+        category: "MEMORY",
+        color: "#D69E2E",
+        rows: [
+          { label: "Card slot", value: "No" },
+          { label: "Internal", value: "128GB 16GB RAM, 256GB 16GB RAM, 512GB 16GB RAM, 1TB 16GB RAM" },
+          { label: "Storage Type", value: "UFS 3.1" },
+        ],
+      },
+      {
+        category: "MAIN CAMERA",
+        color: "#2B6CB0",
+        rows: [
+          { label: "Triple", value: "50 MP, f/1.7, 25mm (wide), PDAF, OIS\n48 MP, f/2.8, 113mm (5x periscope telephoto), PDAF, OIS\n48 MP, f/1.7, 123˚ (ultrawide), PDAF" },
+          { label: "Features", value: "Dual-LED flash, Pixel Shift, Auto-HDR, panorama, AI Best Take" },
+          { label: "Video", value: "8K@30fps (with zoom), 4K@60fps, 1080p@240fps, 10-bit HDR" },
+        ],
+      },
+      {
+        category: "SELFIE CAMERA",
+        color: "#C05621",
+        rows: [
+          { label: "Single", value: "42 MP, f/2.2, 103˚ (ultrawide)" },
+          { label: "Features", value: "Dual-LED flash" },
+          { label: "Video", value: "4K@60fps, 1080p@60fps" },
+        ],
+      },
+      {
+        category: "SOUND",
+        color: "#2C7A7B",
+        rows: [
+          { label: "Loudspeaker", value: "Yes, with stereo speakers" },
+          { label: "3.5mm jack", value: "No" },
+          { label: "Audio Features", value: "24-bit/192kHz audio, active noise cancellation" },
+        ],
+      },
+      {
+        category: "COMMS",
+        color: "#2D3748",
+        rows: [
+          { label: "WLAN", value: "Wi-Fi 802.11 a/b/g/n/ac/6e/7, Wi-Fi Direct" },
+          { label: "Bluetooth", value: "5.9, A2DP, LE, aptX HD" },
+          { label: "Positioning", value: "GPS, GLONASS, BeiDou, Galileo" },
+          { label: "NFC", value: "Yes" },
+          { label: "Infrared port", value: "No" },
+          { label: "USB", value: "USB Type-C 3.2 Gen 2, OTG" },
+          { label: "UWB", value: "Yes, Ultra-Wideband chip" },
+        ],
+      },
+      {
+        category: "FEATURES",
+        color: "#553C9A",
+        rows: [
+          { label: "Sensors", value: "Fingerprint (under display, optical), accelerometer, gyro, proximity, barometer, compass, SpO2" },
+          { label: "Google AI", value: "Gemini Nano, Circle to Search, Live Translate, Call Screen" },
+          { label: "Temperature Sensor", value: "Yes" },
+          { label: "Satellite SOS", value: "Yes, Emergency SOS via satellite" },
+        ],
+      },
+      {
+        category: "BATTERY",
+        color: "#276749",
+        rows: [
+          { label: "Type", value: "Li-Ion 4700 mAh, non-removable" },
+          { label: "Charging", value: "45W wired, 50% in 30 min\n23W wireless\n12W reverse wireless" },
+          { label: "Battery Life", value: "Up to 31 hours video playback" },
+        ],
+      },
+      {
+        category: "MISC",
+        color: "#744210",
+        rows: [
+          { label: "Colors", value: "Obsidian, Porcelain, Wintergreen, Rose Quartz, Hazel" },
+          { label: "Models", value: "GP4BC, G9BQD, GKWS6" },
+          { label: "SAR", value: "0.99 W/kg (head), 0.96 W/kg (body)" },
+          { label: "Price", value: "From $999 / ₹1,09,999" },
+        ],
+      },
+    ],
+    relatedPhones: [
+      { name: "Samsung Galaxy S25 Ultra", image: samsungImg, price: "$1,199", score: 97 },
+      { name: "iPhone 16 Pro Max", image: iphoneImg, price: "$1,199", score: 96 },
+      { name: "OnePlus 13", image: oneplusImg, price: "$799", score: 94 },
+      { name: "Vivo X200", image: vivoImg, price: "$699", score: 93 },
+    ],
+  },
 };
 
 // Default phone data for any phone not in DB
