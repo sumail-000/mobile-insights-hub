@@ -64,14 +64,14 @@ export default function Navbar() {
         <div className="hidden md:block border-t border-white/10">
           <div className="max-w-screen-xl mx-auto px-4 flex items-center gap-1">
             {navItems.map((item, i) => (
-              <a
+              <Link
                 key={i}
-                href="#"
+                to={item.href}
                 className="flex items-center gap-1 px-3 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/10 rounded transition-colors whitespace-nowrap"
               >
                 {item.label}
                 {item.hasDropdown && <ChevronDown size={12} className="opacity-60" />}
-              </a>
+              </Link>
             ))}
           </div>
         </div>
