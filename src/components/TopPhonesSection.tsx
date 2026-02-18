@@ -1,4 +1,4 @@
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Smartphone, Trophy, Camera, Gamepad2, ScanFace } from "lucide-react";
 
 const topByInterest = [
   { rank: 1, name: "Samsung Galaxy S26 Ultra", hits: "29,495" },
@@ -32,14 +32,21 @@ const popularComparisons = [
   { phone1: "Samsung Galaxy S24 Ultra", phone2: "Samsung Galaxy S25 Ultra" },
 ];
 
+const bestOfItems = [
+  { label: "Best Mobiles", Icon: Trophy, gradient: "from-orange-400/20 to-yellow-300/20", iconColor: "text-orange-500" },
+  { label: "Best Camera", Icon: Camera, gradient: "from-blue-400/20 to-sky-300/20", iconColor: "text-blue-500" },
+  { label: "Best Gaming", Icon: Gamepad2, gradient: "from-purple-400/20 to-indigo-300/20", iconColor: "text-purple-500" },
+  { label: "Best Selfie", Icon: ScanFace, gradient: "from-pink-400/20 to-rose-300/20", iconColor: "text-pink-500" },
+];
+
 function TopList({ title, items, valueLabel, headerColor }: { title: string; items: { rank: number; name: string; [key: string]: any }[]; valueLabel: string; headerColor: string }) {
   return (
-    <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
+    <div className="glass-card rounded-xl overflow-hidden">
       <div className="px-4 py-3 font-bold text-sm uppercase tracking-wide" style={{ backgroundColor: headerColor, color: "white" }}>
         {title}
       </div>
-      <div className="divide-y divide-border">
-        <div className="flex px-3 py-1.5 text-xs font-semibold text-muted-foreground bg-secondary/50">
+      <div className="divide-y divide-border/50">
+        <div className="flex px-3 py-1.5 text-xs font-semibold text-muted-foreground bg-white/40 backdrop-blur-sm">
           <span className="w-6">#</span>
           <span className="flex-1">Device</span>
           <span>{valueLabel}</span>
@@ -47,7 +54,7 @@ function TopList({ title, items, valueLabel, headerColor }: { title: string; ite
         {items.map((item, i) => {
           const value = item.hits || item.count;
           return (
-            <a key={i} href="#" className={`flex items-center px-3 py-2 text-xs hover:bg-primary/5 transition-colors ${i % 2 === 0 ? "bg-green-50/50" : "bg-card"}`}>
+            <a key={i} href="#" className={`flex items-center px-3 py-2 text-xs hover:bg-primary/5 transition-colors ${i % 2 === 0 ? "bg-white/30" : "bg-white/10"}`}>
               <span className="w-6 font-semibold text-muted-foreground">{item.rank}.</span>
               <span className="flex-1 font-medium hover:text-primary transition-colors">{item.name}</span>
               <span className="text-muted-foreground">{value}</span>
@@ -81,24 +88,28 @@ export default function TopPhonesSection() {
 
         {/* Popular comparisons + Best of */}
         <div className="space-y-4">
-          <div className="bg-card rounded-xl border border-border shadow-sm p-4">
+          <div className="glass-card rounded-xl p-4">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-sm font-bold uppercase tracking-wide">Popular Comparisons</h3>
               <a href="#" className="text-primary text-xs font-semibold hover:underline">Compare More</a>
             </div>
             <div className="space-y-2">
               {popularComparisons.map((comp, i) => (
-                <a key={i} href="#" className="flex items-center gap-2 p-2 rounded-lg border border-border hover:border-primary/30 hover:bg-primary/5 transition-all group">
+                <a key={i} href="#" className="flex items-center gap-2 p-2 rounded-lg border border-white/60 bg-white/40 backdrop-blur-sm hover:border-primary/30 hover:bg-primary/5 transition-all group">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1.5">
-                      <div className="w-8 h-12 rounded bg-secondary flex items-center justify-center text-sm shrink-0">📱</div>
+                      <div className="w-8 h-12 rounded bg-white/60 border border-border/50 flex items-center justify-center shrink-0">
+                        <Smartphone size={14} className="text-primary" />
+                      </div>
                       <span className="text-xs font-medium truncate">{comp.phone1}</span>
                     </div>
                   </div>
                   <div className="bg-foreground text-background text-xs font-bold rounded-full w-8 h-8 flex items-center justify-center shrink-0">VS</div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1.5">
-                      <div className="w-8 h-12 rounded bg-secondary flex items-center justify-center text-sm shrink-0">📱</div>
+                      <div className="w-8 h-12 rounded bg-white/60 border border-border/50 flex items-center justify-center shrink-0">
+                        <Smartphone size={14} className="text-primary" />
+                      </div>
                       <span className="text-xs font-medium truncate">{comp.phone2}</span>
                     </div>
                   </div>
@@ -108,17 +119,12 @@ export default function TopPhonesSection() {
           </div>
 
           {/* Best of Mobiles */}
-          <div className="bg-card rounded-xl border border-border shadow-sm p-4">
+          <div className="glass-card rounded-xl p-4">
             <h3 className="text-sm font-bold mb-3">Best of Mobiles</h3>
             <div className="grid grid-cols-2 gap-2 mb-2">
-              {[
-                { label: "Best Mobiles", emoji: "🏆", bg: "from-orange-50 to-yellow-50" },
-                { label: "Best Camera", emoji: "📸", bg: "from-blue-50 to-sky-50" },
-                { label: "Best Gaming", emoji: "🎮", bg: "from-purple-50 to-indigo-50" },
-                { label: "Best Selfie", emoji: "🤳", bg: "from-pink-50 to-rose-50" },
-              ].map((item, i) => (
-                <a key={i} href="#" className={`bg-gradient-to-br ${item.bg} rounded-lg p-2.5 flex items-center gap-2 border border-border hover:border-primary/30 transition-colors group`}>
-                  <span className="text-lg">{item.emoji}</span>
+              {bestOfItems.map((item, i) => (
+                <a key={i} href="#" className={`bg-gradient-to-br ${item.gradient} backdrop-blur-sm rounded-lg p-2.5 flex items-center gap-2 border border-white/50 hover:border-primary/30 transition-colors group`}>
+                  <item.Icon size={16} className={`${item.iconColor} shrink-0`} />
                   <span className="text-xs font-semibold group-hover:text-primary transition-colors">{item.label}</span>
                 </a>
               ))}

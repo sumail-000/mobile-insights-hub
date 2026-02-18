@@ -5,6 +5,8 @@ import PhonesSection from "@/components/PhonesSection";
 import NewsSection from "@/components/NewsSection";
 import TopPhonesSection from "@/components/TopPhonesSection";
 import Footer from "@/components/Footer";
+import { Search } from "lucide-react";
+
 
 const upcomingPhones = [
   { name: "Acera Prime", bgColor: "#f0f0f8", accentColor: "#5a5a8a" },
@@ -38,12 +40,19 @@ const Index = () => {
 
         {/* Phone Finder quick access banner */}
         <section className="max-w-screen-xl mx-auto px-4 py-3">
-          <div className="bg-gradient-to-r from-foreground to-foreground/80 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div>
-              <h2 className="text-background text-xl font-bold mb-1">📱 Complete Phone Finder</h2>
-              <p className="text-background/60 text-sm">Filter by brand, price, specs, and more to find the perfect phone for you.</p>
+          <div className="bg-gradient-to-r from-foreground to-foreground/80 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 relative overflow-hidden">
+            {/* Glass orb decoration */}
+            <div className="absolute right-32 top-0 bottom-0 w-32 rounded-full bg-primary/10 blur-2xl pointer-events-none"></div>
+            <div className="flex items-center gap-3">
+              <div className="glass rounded-xl p-3">
+                <Search size={22} className="text-white" />
+              </div>
+              <div>
+                <h2 className="text-background text-xl font-bold mb-1">Complete Phone Finder</h2>
+                <p className="text-background/60 text-sm">Filter by brand, price, specs, and more to find the perfect phone for you.</p>
+              </div>
             </div>
-            <a href="#" className="bg-primary text-primary-foreground px-6 py-2.5 rounded-lg font-semibold text-sm hover:bg-primary/90 transition-colors whitespace-nowrap">
+            <a href="#" className="bg-primary text-primary-foreground px-6 py-2.5 rounded-lg font-semibold text-sm hover:bg-primary/90 transition-colors whitespace-nowrap shadow-lg">
               Launch Phone Finder
             </a>
           </div>
