@@ -1,4 +1,8 @@
-import { ChevronRight, Smartphone, Trophy, Camera, Gamepad2, ScanFace } from "lucide-react";
+import { ChevronRight, Trophy, Camera, Gamepad2, ScanFace } from "lucide-react";
+import samsungImg from "@/assets/phones/samsung-s25-ultra.png";
+import iphoneImg from "@/assets/phones/iphone-16-pro-max.png";
+import oneplusImg from "@/assets/phones/oneplus-13.png";
+import xiaomiImg from "@/assets/phones/xiaomi-15-ultra.png";
 
 const topByInterest = [
   { rank: 1, name: "Samsung Galaxy S26 Ultra", hits: "29,495" },
@@ -27,9 +31,9 @@ const topByFans = [
 ];
 
 const popularComparisons = [
-  { phone1: "Samsung Galaxy S25 Ultra", phone2: "Samsung Galaxy S26 Ultra" },
-  { phone1: "Samsung Galaxy S25 Ultra", phone2: "Apple iPhone 17 Pro..." },
-  { phone1: "Samsung Galaxy S24 Ultra", phone2: "Samsung Galaxy S25 Ultra" },
+  { phone1: "Samsung Galaxy S25 Ultra", phone2: "Samsung Galaxy S26 Ultra", img1: samsungImg, img2: samsungImg, bg1: "#f0f4f8", bg2: "#e8eef8" },
+  { phone1: "Samsung Galaxy S25 Ultra", phone2: "Apple iPhone 16 Pro Max", img1: samsungImg, img2: iphoneImg, bg1: "#f0f4f8", bg2: "#f5f5f5" },
+  { phone1: "OnePlus 13", phone2: "Xiaomi 15 Ultra", img1: oneplusImg, img2: xiaomiImg, bg1: "#fff0f0", bg2: "#f8f3f0" },
 ];
 
 const bestOfItems = [
@@ -96,22 +100,21 @@ export default function TopPhonesSection() {
             <div className="space-y-2">
               {popularComparisons.map((comp, i) => (
                 <a key={i} href="#" className="flex items-center gap-2 p-2 rounded-lg border border-white/60 bg-white/40 backdrop-blur-sm hover:border-primary/30 hover:bg-primary/5 transition-all group">
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-1.5">
-                      <div className="w-8 h-12 rounded bg-white/60 border border-border/50 flex items-center justify-center shrink-0">
-                        <Smartphone size={14} className="text-primary" />
-                      </div>
-                      <span className="text-xs font-medium truncate">{comp.phone1}</span>
+                  {/* Phone 1 */}
+                  <div className="flex flex-col items-center gap-1 flex-1 min-w-0">
+                    <div className="w-10 h-14 rounded-lg flex items-center justify-center shrink-0 overflow-hidden border border-white/60" style={{ backgroundColor: comp.bg1 }}>
+                      <img src={comp.img1} alt={comp.phone1} className="h-12 w-auto object-contain drop-shadow" />
                     </div>
+                    <span className="text-[10px] font-medium text-center leading-tight line-clamp-2">{comp.phone1}</span>
                   </div>
-                  <div className="bg-foreground text-background text-xs font-bold rounded-full w-8 h-8 flex items-center justify-center shrink-0">VS</div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-1.5">
-                      <div className="w-8 h-12 rounded bg-white/60 border border-border/50 flex items-center justify-center shrink-0">
-                        <Smartphone size={14} className="text-primary" />
-                      </div>
-                      <span className="text-xs font-medium truncate">{comp.phone2}</span>
+                  {/* VS badge */}
+                  <div className="bg-foreground text-background text-xs font-bold rounded-full w-7 h-7 flex items-center justify-center shrink-0">VS</div>
+                  {/* Phone 2 */}
+                  <div className="flex flex-col items-center gap-1 flex-1 min-w-0">
+                    <div className="w-10 h-14 rounded-lg flex items-center justify-center shrink-0 overflow-hidden border border-white/60" style={{ backgroundColor: comp.bg2 }}>
+                      <img src={comp.img2} alt={comp.phone2} className="h-12 w-auto object-contain drop-shadow" />
                     </div>
+                    <span className="text-[10px] font-medium text-center leading-tight line-clamp-2">{comp.phone2}</span>
                   </div>
                 </a>
               ))}
