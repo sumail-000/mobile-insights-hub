@@ -1,5 +1,6 @@
 import { ChevronRight } from "lucide-react";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 
 // Real phone images
 import samsungImg from "@/assets/phones/samsung-s25-ultra.png";
@@ -41,8 +42,9 @@ function ScoreBadge({ score, color }: { score: number; color: "high" | "mid" | "
 }
 
 function PhoneCard({ phone }: { phone: Phone }) {
+  const slug = phone.name.toLowerCase().replace(/\s+/g, "-");
   return (
-    <a href="#" className="flex flex-col shrink-0 w-44 glass-card rounded-xl overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all group">
+    <Link to={`/phone/${slug}`} className="flex flex-col shrink-0 w-44 glass-card rounded-xl overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all group">
       {/* Phone image area */}
       <div className="relative h-44 flex items-center justify-center overflow-hidden" style={{ backgroundColor: phone.bgColor }}>
         {phone.score && (
@@ -55,12 +57,34 @@ function PhoneCard({ phone }: { phone: Phone }) {
             className="h-36 w-auto object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
-          /* Coming soon gradient placeholder */
-          <div
-            className="w-20 h-36 rounded-2xl border-2 relative flex flex-col backdrop-blur-sm items-center justify-center"
-            style={{ borderColor: phone.accentColor + "88", backgroundColor: phone.accentColor + "15" }}
-          >
-            <div className="text-xs font-bold opacity-40 text-center px-2" style={{ color: phone.accentColor }}>COMING SOON</div>
+          /* Stylish Coming Soon placeholder */
+          <div className="flex flex-col items-center justify-center w-full h-full relative">
+            {/* Blurred accent glow */}
+            <div
+              className="absolute inset-0 opacity-20"
+              style={{ background: `radial-gradient(ellipse at 50% 60%, ${phone.accentColor}, transparent 70%)` }}
+            />
+            {/* Phone silhouette SVG */}
+            <svg
+              viewBox="0 0 60 110"
+              className="w-16 h-28 relative z-10 opacity-30 group-hover:opacity-50 transition-opacity"
+              fill="none"
+            >
+              <rect x="4" y="2" width="52" height="106" rx="8" stroke={phone.accentColor} strokeWidth="2.5" fill={phone.accentColor} fillOpacity="0.08" />
+              <rect x="18" y="7" width="24" height="4" rx="2" fill={phone.accentColor} fillOpacity="0.4" />
+              <circle cx="30" cy="98" r="4" stroke={phone.accentColor} strokeWidth="1.5" fill={phone.accentColor} fillOpacity="0.2" />
+              <rect x="10" y="18" width="40" height="68" rx="3" fill={phone.accentColor} fillOpacity="0.06" />
+              {/* Camera bump */}
+              <circle cx="30" cy="28" r="8" stroke={phone.accentColor} strokeWidth="1.5" fill={phone.accentColor} fillOpacity="0.1" />
+              <circle cx="30" cy="28" r="4" fill={phone.accentColor} fillOpacity="0.2" />
+            </svg>
+            {/* Coming soon pill */}
+            <div
+              className="relative z-10 mt-1 px-2.5 py-1 rounded-full text-[9px] font-black tracking-widest uppercase border"
+              style={{ borderColor: phone.accentColor + "60", color: phone.accentColor, backgroundColor: phone.accentColor + "15" }}
+            >
+              Coming Soon
+            </div>
           </div>
         )}
         {/* Subtle gradient at bottom */}
@@ -68,15 +92,14 @@ function PhoneCard({ phone }: { phone: Phone }) {
       </div>
       {/* Info */}
       <div className="p-3 bg-white/70 backdrop-blur-sm">
-        <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1">{phone.name}</p>
-        {phone.price && (
+        <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-tight">{phone.name}</p>
+        {phone.price ? (
           <p className="text-sm font-bold text-foreground mt-1">{phone.price}</p>
-        )}
-        {!phone.price && (
-          <p className="text-xs text-primary mt-1">Coming Soon</p>
+        ) : (
+          <p className="text-xs font-bold mt-1" style={{ color: phone.accentColor }}>Coming Soon</p>
         )}
       </div>
-    </a>
+    </Link>
   );
 }
 
