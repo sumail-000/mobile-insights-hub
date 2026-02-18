@@ -1,5 +1,15 @@
-import { ChevronRight, Smartphone } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { useRef } from "react";
+
+// Real phone images
+import samsungImg from "@/assets/phones/samsung-s25-ultra.png";
+import iphoneImg from "@/assets/phones/iphone-16-pro-max.png";
+import oneplusImg from "@/assets/phones/oneplus-13.png";
+import motorolaImg from "@/assets/phones/motorola-edge-50.png";
+import xiaomiImg from "@/assets/phones/xiaomi-15-ultra.png";
+import realmeImg from "@/assets/phones/realme-p4.png";
+import googleImg from "@/assets/phones/google-pixel-9-pro.png";
+import vivoImg from "@/assets/phones/vivo-x200.png";
 
 interface Phone {
   name: string;
@@ -8,6 +18,7 @@ interface Phone {
   scoreColor?: "high" | "mid" | "low";
   bgColor: string;
   accentColor: string;
+  image?: string;
 }
 
 interface PhonesSectionProps {
@@ -22,7 +33,7 @@ function ScoreBadge({ score, color }: { score: number; color: "high" | "mid" | "
     low: "bg-red-600",
   };
   return (
-    <div className={`absolute top-2 left-2 ${colors[color]} text-white text-xs font-bold rounded px-1.5 py-0.5 leading-tight`}>
+    <div className={`absolute top-2 left-2 ${colors[color]} text-white text-xs font-bold rounded px-1.5 py-0.5 leading-tight z-10`}>
       <div className="text-sm leading-none">{score}%</div>
       <div className="text-[9px] opacity-80">Spec Score</div>
     </div>
@@ -33,22 +44,27 @@ function PhoneCard({ phone }: { phone: Phone }) {
   return (
     <a href="#" className="flex flex-col shrink-0 w-44 glass-card rounded-xl overflow-hidden hover:shadow-lg hover:border-primary/30 transition-all group">
       {/* Phone image area */}
-      <div className="relative h-44 flex items-center justify-center" style={{ backgroundColor: phone.bgColor }}>
+      <div className="relative h-44 flex items-center justify-center overflow-hidden" style={{ backgroundColor: phone.bgColor }}>
         {phone.score && (
           <ScoreBadge score={phone.score} color={phone.scoreColor || "mid"} />
         )}
-        {/* Glassmorphism phone silhouette */}
-        <div
-          className="w-20 h-36 rounded-2xl border-2 relative flex flex-col backdrop-blur-sm"
-          style={{ borderColor: phone.accentColor, backgroundColor: phone.accentColor + "22" }}
-        >
-          <div className="w-8 h-1.5 rounded-full mx-auto mt-2" style={{ backgroundColor: phone.accentColor + "88" }}></div>
-          {/* Screen with glass effect */}
-          <div className="flex-1 mx-1.5 my-1.5 rounded-lg flex items-center justify-center" style={{ backgroundColor: phone.accentColor + "33" }}>
-            <Smartphone size={18} style={{ color: phone.accentColor + "cc" }} />
+        {phone.image ? (
+          <img
+            src={phone.image}
+            alt={phone.name}
+            className="h-36 w-auto object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-300"
+          />
+        ) : (
+          /* Coming soon gradient placeholder */
+          <div
+            className="w-20 h-36 rounded-2xl border-2 relative flex flex-col backdrop-blur-sm items-center justify-center"
+            style={{ borderColor: phone.accentColor + "88", backgroundColor: phone.accentColor + "15" }}
+          >
+            <div className="text-xs font-bold opacity-40 text-center px-2" style={{ color: phone.accentColor }}>COMING SOON</div>
           </div>
-          <div className="w-6 h-1 rounded-full mx-auto mb-2" style={{ backgroundColor: phone.accentColor + "88" }}></div>
-        </div>
+        )}
+        {/* Subtle gradient at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />
       </div>
       {/* Info */}
       <div className="p-3 bg-white/70 backdrop-blur-sm">
@@ -96,3 +112,6 @@ export default function PhonesSection({ title, phones }: PhonesSectionProps) {
     </section>
   );
 }
+
+// Export phone images so Index.tsx can use them
+export { samsungImg, iphoneImg, oneplusImg, motorolaImg, xiaomiImg, realmeImg, googleImg, vivoImg };

@@ -1,29 +1,30 @@
 import Navbar from "@/components/Navbar";
 import HeroFinder from "@/components/HeroFinder";
 import BrandsSection from "@/components/BrandsSection";
-import PhonesSection from "@/components/PhonesSection";
+import PhonesSection, { samsungImg, iphoneImg, oneplusImg, motorolaImg, xiaomiImg, realmeImg, googleImg, vivoImg } from "@/components/PhonesSection";
 import NewsSection from "@/components/NewsSection";
 import TopPhonesSection from "@/components/TopPhonesSection";
 import Footer from "@/components/Footer";
 import { Search } from "lucide-react";
 
-
 const upcomingPhones = [
-  { name: "Acera Prime", bgColor: "#f0f0f8", accentColor: "#5a5a8a" },
-  { name: "Vivo V70", bgColor: "#f8f0f0", accentColor: "#8a3a3a" },
-  { name: "iQOO 15R", bgColor: "#f0f0f0", accentColor: "#3a3a3a" },
   { name: "Samsung Galaxy S26 Ultra", score: 99, scoreColor: "high" as const, bgColor: "#f0f4f8", accentColor: "#1428A0" },
   { name: "Xiaomi 17 Pro Max", bgColor: "#f8f3f0", accentColor: "#FF6900" },
   { name: "OnePlus 15R", bgColor: "#f8f0f0", accentColor: "#F5010C" },
+  { name: "Acera Prime", bgColor: "#f0f0f8", accentColor: "#5a5a8a" },
+  { name: "Vivo V70", bgColor: "#f8f0f0", accentColor: "#415FFF" },
+  { name: "iQOO 15R", bgColor: "#f0f0f0", accentColor: "#3a3a3a" },
 ];
 
 const latestPhones = [
-  { name: "Realme P4 Power", price: "$299", score: 87, scoreColor: "mid" as const, bgColor: "#fff8f0", accentColor: "#FFD600" },
-  { name: "Motorola Signature", price: "$699", score: 97, scoreColor: "high" as const, bgColor: "#f0f4f8", accentColor: "#002B5C" },
-  { name: "Oppo Reno15", price: "$549", score: 90, scoreColor: "high" as const, bgColor: "#f0f8ff", accentColor: "#1D4289" },
-  { name: "Motorola Edge 70", price: "$369", score: 89, scoreColor: "mid" as const, bgColor: "#f5f5f5", accentColor: "#555" },
-  { name: "OnePlus 15R", price: "$579", score: 95, scoreColor: "high" as const, bgColor: "#fff0f0", accentColor: "#F5010C" },
-  { name: "Xiaomi 17 Ultra", price: "$1099", score: 98, scoreColor: "high" as const, bgColor: "#f8f3f0", accentColor: "#FF6900" },
+  { name: "Samsung Galaxy S25 Ultra", price: "$1199", score: 97, scoreColor: "high" as const, bgColor: "#f0f4f8", accentColor: "#1428A0", image: samsungImg },
+  { name: "iPhone 16 Pro Max", price: "$1199", score: 96, scoreColor: "high" as const, bgColor: "#f5f5f5", accentColor: "#555", image: iphoneImg },
+  { name: "OnePlus 13", price: "$799", score: 94, scoreColor: "high" as const, bgColor: "#fff0f0", accentColor: "#F5010C", image: oneplusImg },
+  { name: "Motorola Edge 50", price: "$369", score: 89, scoreColor: "mid" as const, bgColor: "#f0f4ff", accentColor: "#5C8EE6", image: motorolaImg },
+  { name: "Xiaomi 15 Ultra", price: "$1099", score: 98, scoreColor: "high" as const, bgColor: "#f8f3f0", accentColor: "#FF6900", image: xiaomiImg },
+  { name: "Realme P4", price: "$299", score: 87, scoreColor: "mid" as const, bgColor: "#fff8f0", accentColor: "#FFD600", image: realmeImg },
+  { name: "Google Pixel 9 Pro", price: "$999", score: 95, scoreColor: "high" as const, bgColor: "#f0f4ff", accentColor: "#4285F4", image: googleImg },
+  { name: "Vivo X200", price: "$699", score: 93, scoreColor: "high" as const, bgColor: "#f0f0ff", accentColor: "#415FFF", image: vivoImg },
 ];
 
 const Index = () => {
@@ -41,7 +42,6 @@ const Index = () => {
         {/* Phone Finder quick access banner */}
         <section className="max-w-screen-xl mx-auto px-4 py-3">
           <div className="bg-gradient-to-r from-foreground to-foreground/80 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 relative overflow-hidden">
-            {/* Glass orb decoration */}
             <div className="absolute right-32 top-0 bottom-0 w-32 rounded-full bg-primary/10 blur-2xl pointer-events-none"></div>
             <div className="flex items-center gap-3">
               <div className="glass rounded-xl p-3">
