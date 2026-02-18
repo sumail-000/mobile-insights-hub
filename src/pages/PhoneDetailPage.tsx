@@ -450,6 +450,8 @@ export default function PhoneDetailPage() {
 
       {/* ═══ STICKY TAB BAR ════════════════════════════════════════════════ */}
       <div ref={tabRef} className="max-w-screen-xl mx-auto px-4 mb-4">
+        {/* Spacer when tab bar is sticky so content doesn't jump */}
+        {sticky && <div className="h-14" />}
         <div className={`glass-card rounded-xl overflow-hidden transition-all ${sticky ? "fixed top-14 left-0 right-0 z-40 max-w-none rounded-none shadow-xl border-x-0 border-t-0" : ""}`}>
           <div className={`flex ${sticky ? "max-w-screen-xl mx-auto px-4" : ""}`}>
             {TABS.map(tab => (
