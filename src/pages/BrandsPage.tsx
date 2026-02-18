@@ -1,78 +1,125 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ChevronRight, Search, Smartphone, Grid3X3, List } from "lucide-react";
+import { ChevronRight, Search, Smartphone, Grid3X3, List, X } from "lucide-react";
 
 const allBrands = [
-  { name: "Samsung", devices: 312, color: "#1428A0", bg: "#EEF0FA", featured: true },
-  { name: "Apple", devices: 145, color: "#555555", bg: "#F5F5F5", featured: true },
-  { name: "Xiaomi", devices: 284, color: "#FF6900", bg: "#FFF3EC", featured: true },
-  { name: "OnePlus", devices: 93, color: "#F5010C", bg: "#FFF0F0", featured: true },
-  { name: "Google", devices: 47, color: "#4285F4", bg: "#EFF4FF", featured: true },
-  { name: "Motorola", devices: 198, color: "#002B5C", bg: "#EDF1F8", featured: true },
-  { name: "Vivo", devices: 167, color: "#415FFF", bg: "#EEF0FF", featured: false },
-  { name: "OPPO", devices: 203, color: "#1D4289", bg: "#EEF2FA", featured: false },
-  { name: "Realme", devices: 178, color: "#E4A900", bg: "#FFFCE6", featured: false },
-  { name: "Infinix", devices: 89, color: "#ED1C24", bg: "#FFF0F0", featured: false },
-  { name: "Tecno", devices: 112, color: "#00AEEF", bg: "#E6F8FF", featured: false },
-  { name: "Nokia", devices: 201, color: "#124191", bg: "#EEF2FA", featured: false },
-  { name: "Huawei", devices: 256, color: "#CF0A2C", bg: "#FFF0F2", featured: false },
-  { name: "Honor", devices: 134, color: "#1C1C1C", bg: "#F5F5F5", featured: false },
-  { name: "Sony", devices: 88, color: "#003087", bg: "#EEF2FA", featured: false },
-  { name: "LG", devices: 177, color: "#A50034", bg: "#FFF0F3", featured: false },
-  { name: "Asus", devices: 207, color: "#00BCB4", bg: "#E6FAFA", featured: false },
-  { name: "Lenovo", devices: 143, color: "#E2231A", bg: "#FFF0F0", featured: false },
-  { name: "HTC", devices: 64, color: "#69BD45", bg: "#F0FAF0", featured: false },
-  { name: "Nothing", devices: 12, color: "#1C1C1C", bg: "#F5F5F5", featured: false },
-  { name: "Alcatel", devices: 414, color: "#009EDD", bg: "#E6F7FF", featured: false },
-  { name: "BlackBerry", devices: 92, color: "#1C1C1C", bg: "#F5F5F5", featured: false },
-  { name: "Doogee", devices: 98, color: "#FF6B00", bg: "#FFF3E6", featured: false },
-  { name: "Ulefone", devices: 56, color: "#0066CC", bg: "#EEF4FF", featured: false },
-  { name: "Blackview", devices: 113, color: "#2C5F8A", bg: "#EEF4FA", featured: false },
-  { name: "Cubot", devices: 100, color: "#E8B400", bg: "#FFFBEE", featured: false },
-  { name: "Oukitel", devices: 74, color: "#FF4500", bg: "#FFF2EE", featured: false },
-  { name: "Meizu", devices: 89, color: "#1E90FF", bg: "#EEF5FF", featured: false },
-  { name: "ZTE", devices: 134, color: "#E22D3F", bg: "#FFF0F1", featured: false },
-  { name: "Micromax", devices: 167, color: "#E61E28", bg: "#FFF0F0", featured: false },
-  { name: "Itel", devices: 78, color: "#0056A8", bg: "#EEF3FA", featured: false },
-  { name: "Acer", devices: 113, color: "#83B81A", bg: "#F6FAF0", featured: false },
-  { name: "Amazon", devices: 25, color: "#FF9900", bg: "#FFF8EE", featured: false },
-  { name: "BLU", devices: 369, color: "#1E90FF", bg: "#EEF5FF", featured: false },
-  { name: "Cat", devices: 22, color: "#FFAE00", bg: "#FFF9EE", featured: false },
-  { name: "Sharp", devices: 67, color: "#1C1C1C", bg: "#F5F5F5", featured: false },
+  { name: "Samsung", devices: 312, color: "#1428A0", logo: "https://cdn.simpleicons.org/samsung/1428A0", featured: true },
+  { name: "Apple", devices: 145, color: "#888888", logo: "https://cdn.simpleicons.org/apple/888888", featured: true },
+  { name: "Xiaomi", devices: 284, color: "#FF6900", logo: "https://cdn.simpleicons.org/xiaomi/FF6900", featured: true },
+  { name: "OnePlus", devices: 93, color: "#F5010C", logo: "https://cdn.simpleicons.org/oneplus/F5010C", featured: true },
+  { name: "Google", devices: 47, color: "#4285F4", logo: "https://cdn.simpleicons.org/google/4285F4", featured: true },
+  { name: "Motorola", devices: 198, color: "#5C8EE6", logo: "https://cdn.simpleicons.org/motorola/5C8EE6", featured: true },
+  { name: "Vivo", devices: 167, color: "#415FFF", logo: "https://cdn.simpleicons.org/vivo/415FFF", featured: false },
+  { name: "OPPO", devices: 203, color: "#1D4289", logo: "https://cdn.simpleicons.org/oppo/1D4289", featured: false },
+  { name: "Realme", devices: 178, color: "#FFD600", logo: "https://cdn.simpleicons.org/realme/FFD600", featured: false },
+  { name: "Huawei", devices: 256, color: "#CF0A2C", logo: "https://cdn.simpleicons.org/huawei/CF0A2C", featured: false },
+  { name: "Sony", devices: 88, color: "#aaaaaa", logo: "https://cdn.simpleicons.org/sony/aaaaaa", featured: false },
+  { name: "Nokia", devices: 201, color: "#4BA3DA", logo: "https://cdn.simpleicons.org/nokia/4BA3DA", featured: false },
+  { name: "Honor", devices: 134, color: "#d0d0d0", logo: "https://cdn.simpleicons.org/honor/d0d0d0", featured: false },
+  { name: "Asus", devices: 207, color: "#00BCB4", logo: "https://cdn.simpleicons.org/asus/00BCB4", featured: false },
+  { name: "LG", devices: 177, color: "#A50034", logo: "https://cdn.simpleicons.org/lg/A50034", featured: false },
+  { name: "Lenovo", devices: 143, color: "#E2231A", logo: "https://cdn.simpleicons.org/lenovo/E2231A", featured: false },
+  { name: "BlackBerry", devices: 92, color: "#bbbbbb", logo: "https://cdn.simpleicons.org/blackberry/bbbbbb", featured: false },
+  { name: "Nothing", devices: 12, color: "#cccccc", logo: "https://cdn.simpleicons.org/nothing/cccccc", featured: false },
+  { name: "Infinix", devices: 89, color: "#ED1C24", logo: null, featured: false },
+  { name: "Tecno", devices: 112, color: "#00AEEF", logo: null, featured: false },
+  { name: "ZTE", devices: 134, color: "#E22D3F", logo: "https://cdn.simpleicons.org/zte/E22D3F", featured: false },
+  { name: "HTC", devices: 64, color: "#69BD45", logo: "https://cdn.simpleicons.org/htc/69BD45", featured: false },
+  { name: "Acer", devices: 113, color: "#83B81A", logo: "https://cdn.simpleicons.org/acer/83B81A", featured: false },
+  { name: "Amazon", devices: 25, color: "#FF9900", logo: "https://cdn.simpleicons.org/amazon/FF9900", featured: false },
+  { name: "Sharp", devices: 67, color: "#aaaaaa", logo: null, featured: false },
+  { name: "Micromax", devices: 167, color: "#E61E28", logo: null, featured: false },
+  { name: "Alcatel", devices: 414, color: "#009EDD", logo: null, featured: false },
+  { name: "Meizu", devices: 89, color: "#1E90FF", logo: null, featured: false },
+  { name: "Doogee", devices: 98, color: "#FF6B00", logo: null, featured: false },
+  { name: "Cat", devices: 22, color: "#FFAE00", logo: null, featured: false },
+  { name: "BLU", devices: 369, color: "#1E90FF", logo: null, featured: false },
+  { name: "Oukitel", devices: 74, color: "#FF4500", logo: null, featured: false },
+  { name: "Ulefone", devices: 56, color: "#0066CC", logo: null, featured: false },
+  { name: "Blackview", devices: 113, color: "#2C5F8A", logo: null, featured: false },
+  { name: "Itel", devices: 78, color: "#0056A8", logo: null, featured: false },
 ];
 
 const samplePhones = {
   Samsung: [
-    { name: "Galaxy S26 Ultra", specs: "Snapdragon 8 Elite 2 · 16GB RAM · 256GB", score: 99, color: "#1428A0" },
-    { name: "Galaxy Z Fold 7", specs: "Snapdragon 8 Elite 2 · 12GB RAM · 256GB", score: 97, color: "#1428A0" },
-    { name: "Galaxy A56 5G", specs: "Exynos 1580 · 8GB RAM · 128GB", score: 82, color: "#1428A0" },
-    { name: "Galaxy S25+", specs: "Snapdragon 8 Elite · 12GB RAM · 256GB", score: 95, color: "#1428A0" },
-    { name: "Galaxy A36 5G", specs: "Snapdragon 6 Gen 3 · 6GB RAM · 128GB", score: 74, color: "#1428A0" },
+    { name: "Galaxy S26 Ultra", specs: "Snapdragon 8 Elite 2 · 16GB · 256GB", score: 99 },
+    { name: "Galaxy Z Fold 7", specs: "Snapdragon 8 Elite 2 · 12GB · 256GB", score: 97 },
+    { name: "Galaxy A56 5G", specs: "Exynos 1580 · 8GB · 128GB", score: 82 },
+    { name: "Galaxy S25+", specs: "Snapdragon 8 Elite · 12GB · 256GB", score: 95 },
+    { name: "Galaxy A36 5G", specs: "Snapdragon 6 Gen 3 · 6GB · 128GB", score: 74 },
   ],
   Apple: [
-    { name: "iPhone 17 Pro Max", specs: "A19 Pro · 8GB RAM · 256GB", score: 99, color: "#555" },
-    { name: "iPhone 17 Pro", specs: "A19 Pro · 8GB RAM · 128GB", score: 97, color: "#555" },
-    { name: "iPhone 17e", specs: "A18 · 6GB RAM · 128GB", score: 88, color: "#555" },
-    { name: "iPhone 17", specs: "A19 · 8GB RAM · 128GB", score: 93, color: "#555" },
-    { name: "iPhone 16 Plus", specs: "A18 · 8GB RAM · 128GB", score: 90, color: "#555" },
+    { name: "iPhone 17 Pro Max", specs: "A19 Pro · 8GB · 256GB", score: 99 },
+    { name: "iPhone 17 Pro", specs: "A19 Pro · 8GB · 128GB", score: 97 },
+    { name: "iPhone 17e", specs: "A18 · 6GB · 128GB", score: 88 },
+    { name: "iPhone 17", specs: "A19 · 8GB · 128GB", score: 93 },
+    { name: "iPhone 16 Plus", specs: "A18 · 8GB · 128GB", score: 90 },
   ],
   Default: [
-    { name: "Flagship Pro", specs: "Snapdragon 8 Gen 3 · 12GB RAM · 256GB", score: 95, color: "#555" },
-    { name: "Ultra Plus", specs: "MediaTek Dimensity 9300 · 8GB RAM · 128GB", score: 87, color: "#555" },
-    { name: "5G Lite", specs: "Snapdragon 6 Gen 1 · 6GB RAM · 128GB", score: 72, color: "#555" },
-    { name: "Budget Pro", specs: "MediaTek Helio G99 · 6GB RAM · 128GB", score: 68, color: "#555" },
-    { name: "Mid Range X", specs: "Snapdragon 7s Gen 2 · 8GB RAM · 256GB", score: 80, color: "#555" },
+    { name: "Flagship Pro Ultra", specs: "Snapdragon 8 Gen 3 · 12GB · 256GB", score: 95 },
+    { name: "Mid Range X5", specs: "Dimensity 9300 · 8GB · 128GB", score: 87 },
+    { name: "5G Lite Edition", specs: "Snapdragon 6 Gen 1 · 6GB · 128GB", score: 72 },
+    { name: "Budget Pro Max", specs: "Helio G99 · 6GB · 128GB", score: 68 },
+    { name: "Power Series V2", specs: "Snapdragon 7s Gen 2 · 8GB · 256GB", score: 80 },
   ],
 };
 
 function ScoreBadge({ score }: { score: number }) {
-  const color = score >= 90 ? "bg-green-700" : score >= 75 ? "bg-amber-600" : "bg-red-600";
+  const bg = score >= 90 ? "from-green-600 to-green-700" : score >= 75 ? "from-amber-500 to-amber-600" : "from-red-500 to-red-600";
   return (
-    <div className={`${color} text-white text-xs font-bold rounded px-2 py-1 text-center leading-tight`}>
-      <div className="text-sm leading-none">{score}%</div>
-      <div className="text-[9px] opacity-80">Score</div>
+    <div className={`bg-gradient-to-br ${bg} text-white rounded-lg px-2 py-1.5 text-center shadow-lg shrink-0`}>
+      <div className="text-sm font-black leading-none">{score}%</div>
+      <div className="text-[8px] font-semibold opacity-90 leading-tight">Spec<br />Score</div>
+    </div>
+  );
+}
+
+function BrandLogo({ brand, size = "md" }: { brand: typeof allBrands[0]; size?: "sm" | "md" | "lg" }) {
+  const dims = size === "lg" ? "w-16 h-16" : size === "md" ? "w-12 h-12" : "w-9 h-9";
+  const imgDims = size === "lg" ? "w-10 h-10" : size === "md" ? "w-7 h-7" : "w-5 h-5";
+
+  return (
+    <div
+      className={`${dims} rounded-xl flex items-center justify-center relative overflow-hidden shrink-0`}
+      style={{
+        background: `linear-gradient(135deg, ${brand.color}20 0%, ${brand.color}08 100%)`,
+        border: `1px solid ${brand.color}35`,
+        backdropFilter: "blur(8px)",
+      }}
+    >
+      <div
+        className="absolute inset-0 opacity-30"
+        style={{ background: `radial-gradient(circle at 30% 30%, ${brand.color}30, transparent 70%)` }}
+      />
+      {brand.logo ? (
+        <img
+          src={brand.logo}
+          alt={brand.name}
+          className={`${imgDims} object-contain relative z-10`}
+          onError={(e) => {
+            e.currentTarget.style.display = "none";
+            const parent = e.currentTarget.parentElement;
+            if (parent && !parent.querySelector("span")) {
+              const span = document.createElement("span");
+              span.style.color = brand.color;
+              span.style.fontWeight = "900";
+              span.style.fontSize = "11px";
+              span.style.position = "relative";
+              span.style.zIndex = "10";
+              span.textContent = brand.name.slice(0, 3).toUpperCase();
+              parent.appendChild(span);
+            }
+          }}
+        />
+      ) : (
+        <span
+          className="font-black text-[11px] relative z-10"
+          style={{ color: brand.color }}
+        >
+          {brand.name.slice(0, 3).toUpperCase()}
+        </span>
+      )}
     </div>
   );
 }
@@ -81,7 +128,7 @@ export default function BrandsPage() {
   const [search, setSearch] = useState("");
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [sortBy, setSortBy] = useState<"name" | "devices">("name");
+  const [sortBy, setSortBy] = useState<"name" | "devices">("devices");
 
   const filtered = allBrands
     .filter(b => b.name.toLowerCase().includes(search.toLowerCase()))
@@ -92,7 +139,7 @@ export default function BrandsPage() {
 
   const selectedBrandData = allBrands.find(b => b.name === selectedBrand);
   const phones = selectedBrand
-    ? (samplePhones[selectedBrand as keyof typeof samplePhones] || samplePhones.Default.map(p => ({ ...p, color: selectedBrandData?.color || "#555" })))
+    ? (samplePhones[selectedBrand as keyof typeof samplePhones] || samplePhones.Default)
     : [];
 
   return (
@@ -100,38 +147,48 @@ export default function BrandsPage() {
       <Navbar />
       <main>
         {/* Hero */}
-        <div className="relative bg-gradient-to-br from-foreground via-foreground/90 to-foreground/80 overflow-hidden">
+        <div className="relative bg-gradient-to-br from-foreground via-foreground/95 to-foreground/85 overflow-hidden">
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-0 left-1/4 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 right-1/4 w-56 h-56 bg-primary/10 rounded-full blur-2xl" />
+            <div className="absolute top-0 left-1/4 w-80 h-80 bg-primary/20 rounded-full blur-3xl" />
+            <div className="absolute -bottom-20 right-1/4 w-60 h-60 bg-primary/10 rounded-full blur-2xl" />
           </div>
           <div className="max-w-screen-xl mx-auto px-4 py-10 relative z-10">
-            <p className="text-primary text-xs font-semibold uppercase tracking-widest mb-2">All Brands</p>
-            <h1 className="text-white text-3xl md:text-4xl font-bold mb-2">Mobile Phone Brands</h1>
-            <p className="text-white/60 text-sm mb-6">Browse all {allBrands.length}+ brands and their complete device lineup</p>
-            <div className="max-w-lg relative">
-              <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/50" />
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-primary text-xs font-bold uppercase tracking-widest">Directory</span>
+              <div className="h-px w-12 bg-primary/40" />
+            </div>
+            <h1 className="text-white text-3xl md:text-4xl font-black mb-2">Mobile Brands</h1>
+            <p className="text-white/50 text-sm mb-6">Browse {allBrands.length}+ brands and explore their complete device lineup</p>
+            <div className="max-w-md relative">
+              <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/40" />
               <input
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                placeholder="Search brands..."
-                className="w-full glass text-white placeholder-white/40 rounded-xl pl-10 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                placeholder="Search brand name..."
+                className="w-full glass border border-white/15 text-white placeholder-white/30 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-1 focus:ring-primary/50 focus:border-primary/30 transition-all"
               />
+              {search && (
+                <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors">
+                  <X size={14} />
+                </button>
+              )}
             </div>
           </div>
         </div>
 
         <div className="max-w-screen-xl mx-auto px-4 py-6">
-          {/* View controls */}
+          {/* Controls */}
           <div className="flex items-center justify-between mb-6 gap-4 flex-wrap">
             <div className="flex items-center gap-2">
-              <span className="text-sm text-muted-foreground">{filtered.length} brands found</span>
+              <span className="text-sm text-muted-foreground">
+                <span className="font-bold text-foreground">{filtered.length}</span> brands
+              </span>
               {selectedBrand && (
                 <button
                   onClick={() => setSelectedBrand(null)}
-                  className="ml-2 flex items-center gap-1 bg-primary/10 text-primary text-xs px-3 py-1.5 rounded-full font-semibold hover:bg-primary/20 transition-colors"
+                  className="flex items-center gap-1.5 bg-primary/10 border border-primary/25 text-primary text-xs px-3 py-1.5 rounded-full font-semibold hover:bg-primary/20 transition-colors"
                 >
-                  × Clear: {selectedBrand}
+                  <X size={10} /> {selectedBrand}
                 </button>
               )}
             </div>
@@ -139,52 +196,53 @@ export default function BrandsPage() {
               <select
                 value={sortBy}
                 onChange={e => setSortBy(e.target.value as "name" | "devices")}
-                className="glass-card text-sm px-3 py-1.5 rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-primary/30 text-foreground cursor-pointer"
+                className="glass-card text-xs px-3 py-1.5 rounded-lg border-0 focus:outline-none text-foreground cursor-pointer"
               >
-                <option value="name">Sort by Name</option>
-                <option value="devices">Sort by Devices</option>
+                <option value="devices">Most Devices</option>
+                <option value="name">A–Z</option>
               </select>
-              <div className="flex glass-card rounded-lg overflow-hidden">
+              <div className="flex glass-card rounded-lg overflow-hidden border border-white/10">
                 <button
                   onClick={() => setViewMode("grid")}
                   className={`p-2 transition-colors ${viewMode === "grid" ? "bg-primary text-white" : "text-muted-foreground hover:text-foreground"}`}
                 >
-                  <Grid3X3 size={16} />
+                  <Grid3X3 size={14} />
                 </button>
                 <button
                   onClick={() => setViewMode("list")}
                   className={`p-2 transition-colors ${viewMode === "list" ? "bg-primary text-white" : "text-muted-foreground hover:text-foreground"}`}
                 >
-                  <List size={16} />
+                  <List size={14} />
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Featured brands */}
-          {featured.length > 0 && !selectedBrand && (
+          {/* Featured Brands */}
+          {featured.length > 0 && !selectedBrand && !search && (
             <div className="mb-8">
-              <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
+              <h2 className="text-base font-bold mb-4 flex items-center gap-2">
                 <span className="w-1 h-5 bg-primary rounded-full inline-block" />
                 Featured Brands
               </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+              <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
                 {featured.map((brand, i) => (
                   <button
                     key={i}
                     onClick={() => setSelectedBrand(brand.name)}
-                    className="glass-card rounded-xl p-4 flex flex-col items-center gap-2 hover:shadow-lg hover:border-primary/30 hover:-translate-y-0.5 transition-all group"
+                    className="glass-card rounded-2xl p-4 flex flex-col items-center gap-3 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden"
+                    style={{ border: selectedBrand === brand.name ? `1px solid ${brand.color}60` : undefined }}
                   >
+                    {/* Glow BG */}
                     <div
-                      className="w-14 h-14 rounded-xl flex items-center justify-center border border-white/60"
-                      style={{ backgroundColor: brand.bg + "dd" }}
-                    >
-                      <span className="font-black text-xs text-center leading-tight px-1" style={{ color: brand.color }}>
-                        {brand.name.toUpperCase()}
-                      </span>
+                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      style={{ background: `radial-gradient(circle at 50% 30%, ${brand.color}15, transparent 70%)` }}
+                    />
+                    <BrandLogo brand={brand} size="md" />
+                    <div className="relative z-10 text-center">
+                      <p className="text-xs font-bold text-foreground group-hover:text-primary transition-colors">{brand.name}</p>
+                      <p className="text-[10px] text-muted-foreground">{brand.devices} devices</p>
                     </div>
-                    <span className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors">{brand.name}</span>
-                    <span className="text-[10px] text-muted-foreground">{brand.devices} devices</span>
                   </button>
                 ))}
               </div>
@@ -192,32 +250,36 @@ export default function BrandsPage() {
           )}
 
           <div className="flex gap-6">
-            {/* Brands list */}
-            <div className={`${selectedBrand ? "w-full md:w-1/3" : "w-full"} transition-all`}>
+            {/* Brand grid/list */}
+            <div className={`${selectedBrand ? "hidden md:block w-1/3 shrink-0" : "w-full"} transition-all`}>
               {!selectedBrand && (
-                <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
+                <h2 className="text-base font-bold mb-4 flex items-center gap-2">
                   <span className="w-1 h-5 bg-primary rounded-full inline-block" />
                   All Brands
                 </h2>
               )}
+
               {viewMode === "grid" ? (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                <div className={`grid gap-3 ${selectedBrand ? "grid-cols-2" : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"}`}>
                   {(selectedBrand ? filtered : others).map((brand, i) => (
                     <button
                       key={i}
                       onClick={() => setSelectedBrand(brand.name === selectedBrand ? null : brand.name)}
-                      className={`glass-card rounded-xl p-4 flex flex-col items-center gap-2 hover:shadow-lg hover:-translate-y-0.5 transition-all group ${brand.name === selectedBrand ? "border-primary/50 shadow-lg bg-primary/5" : "hover:border-primary/30"}`}
+                      className="glass-card rounded-xl p-3.5 flex flex-col items-center gap-2.5 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 group relative overflow-hidden"
+                      style={{
+                        border: brand.name === selectedBrand ? `1px solid ${brand.color}50` : undefined,
+                        background: brand.name === selectedBrand ? `${brand.color}0a` : undefined,
+                      }}
                     >
                       <div
-                        className="w-12 h-12 rounded-lg flex items-center justify-center border border-white/60"
-                        style={{ backgroundColor: brand.bg + "dd" }}
-                      >
-                        <span className="font-black text-[10px] text-center leading-tight px-1" style={{ color: brand.color }}>
-                          {brand.name.toUpperCase()}
-                        </span>
+                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        style={{ background: `radial-gradient(circle at 50% 30%, ${brand.color}12, transparent 70%)` }}
+                      />
+                      <BrandLogo brand={brand} size="sm" />
+                      <div className="relative z-10 text-center">
+                        <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1">{brand.name}</p>
+                        <p className="text-[10px] text-muted-foreground">{brand.devices} devices</p>
                       </div>
-                      <span className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1">{brand.name}</span>
-                      <span className="text-[10px] text-muted-foreground">{brand.devices} devices</span>
                     </button>
                   ))}
                 </div>
@@ -227,66 +289,89 @@ export default function BrandsPage() {
                     <button
                       key={i}
                       onClick={() => setSelectedBrand(brand.name === selectedBrand ? null : brand.name)}
-                      className={`w-full flex items-center gap-4 px-5 py-3.5 border-b border-border/50 last:border-0 hover:bg-primary/5 transition-colors group ${brand.name === selectedBrand ? "bg-primary/8" : ""}`}
+                      className="w-full flex items-center gap-3 px-4 py-3 border-b border-white/8 last:border-0 hover:bg-primary/5 transition-colors group"
+                      style={{ background: brand.name === selectedBrand ? `${brand.color}0a` : undefined }}
                     >
-                      <div
-                        className="w-10 h-10 rounded-lg flex items-center justify-center border border-white/60 shrink-0"
-                        style={{ backgroundColor: brand.bg + "dd" }}
-                      >
-                        <span className="font-black text-[9px] text-center leading-tight px-1" style={{ color: brand.color }}>
-                          {brand.name.slice(0, 3).toUpperCase()}
-                        </span>
-                      </div>
+                      <BrandLogo brand={brand} size="sm" />
                       <div className="flex-1 text-left">
                         <p className="text-sm font-semibold group-hover:text-primary transition-colors">{brand.name}</p>
                         <p className="text-xs text-muted-foreground">{brand.devices} devices</p>
                       </div>
-                      <ChevronRight size={14} className="text-muted-foreground group-hover:text-primary transition-colors" />
+                      <ChevronRight size={13} className="text-muted-foreground group-hover:text-primary transition-colors" />
                     </button>
                   ))}
                 </div>
               )}
             </div>
 
-            {/* Selected brand phones */}
-            {selectedBrand && (
-              <div className="flex-1">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-lg font-bold flex items-center gap-2">
-                    <span className="w-1 h-5 bg-primary rounded-full inline-block" />
-                    {selectedBrand} Phones
-                  </h2>
-                  <a href="#" className="text-primary text-sm font-semibold hover:underline flex items-center gap-1">
-                    View All <ChevronRight size={14} />
+            {/* Selected brand phone list */}
+            {selectedBrand && selectedBrandData && (
+              <div className="flex-1 min-w-0">
+                {/* Brand header card */}
+                <div
+                  className="glass-card rounded-2xl p-5 mb-4 flex items-center gap-4 relative overflow-hidden"
+                  style={{ border: `1px solid ${selectedBrandData.color}30` }}
+                >
+                  <div
+                    className="absolute inset-0 opacity-60"
+                    style={{ background: `radial-gradient(ellipse at 0% 50%, ${selectedBrandData.color}18, transparent 60%)` }}
+                  />
+                  <BrandLogo brand={selectedBrandData} size="lg" />
+                  <div className="relative z-10">
+                    <h2 className="text-xl font-black">{selectedBrandData.name}</h2>
+                    <p className="text-sm text-muted-foreground">{selectedBrandData.devices} devices in database</p>
+                  </div>
+                  <button
+                    onClick={() => setSelectedBrand(null)}
+                    className="ml-auto relative z-10 glass rounded-lg p-1.5 hover:border-primary/30 transition-colors md:hidden"
+                  >
+                    <X size={14} />
+                  </button>
+                </div>
+
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="font-bold text-sm flex items-center gap-2">
+                    <span className="w-1 h-4 bg-primary rounded-full" />
+                    Latest {selectedBrand} Phones
+                  </h3>
+                  <a href="#" className="text-primary text-xs font-semibold hover:underline flex items-center gap-1">
+                    View All <ChevronRight size={12} />
                   </a>
                 </div>
+
                 <div className="space-y-3">
                   {phones.map((phone, i) => (
                     <a
                       key={i}
                       href="#"
-                      className="glass-card rounded-xl p-4 flex items-center gap-4 hover:shadow-lg hover:border-primary/30 transition-all group block"
+                      className="glass-card rounded-xl p-4 flex items-center gap-4 hover:shadow-lg hover:border-primary/25 hover:-translate-y-0.5 transition-all duration-200 group block"
                     >
                       {/* Phone silhouette */}
                       <div
-                        className="w-12 h-20 rounded-xl border-2 flex flex-col items-center justify-center shrink-0"
-                        style={{ borderColor: phone.color + "66", backgroundColor: phone.color + "11" }}
+                        className="w-10 h-16 rounded-xl flex items-center justify-center shrink-0"
+                        style={{
+                          background: `linear-gradient(135deg, ${selectedBrandData.color}20, ${selectedBrandData.color}08)`,
+                          border: `1px solid ${selectedBrandData.color}30`,
+                        }}
                       >
-                        <Smartphone size={20} style={{ color: phone.color + "bb" }} />
+                        <Smartphone size={18} style={{ color: selectedBrandData.color + "cc" }} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm">{phone.name}</p>
-                        <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">{phone.specs}</p>
-                        <a href="#" className="text-primary text-xs font-semibold mt-2 inline-block hover:underline">View All Specs →</a>
+                        <p className="font-bold text-sm text-foreground group-hover:text-primary transition-colors">{phone.name}</p>
+                        <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{phone.specs}</p>
+                        <span className="text-primary text-xs font-semibold mt-1.5 inline-flex items-center gap-1 hover:underline">
+                          View Specs <ChevronRight size={10} />
+                        </span>
                       </div>
                       <ScoreBadge score={phone.score} />
                     </a>
                   ))}
+
                   <a
                     href="#"
-                    className="glass-card rounded-xl p-4 flex items-center justify-center gap-2 hover:border-primary/30 hover:bg-primary/5 transition-all text-primary font-semibold text-sm"
+                    className="glass-card rounded-xl p-3.5 flex items-center justify-center gap-2 hover:border-primary/30 hover:bg-primary/5 transition-all text-primary font-bold text-sm"
                   >
-                    View All {selectedBrand} Phones <ChevronRight size={14} />
+                    All {selectedBrand} Phones <ChevronRight size={14} />
                   </a>
                 </div>
               </div>
