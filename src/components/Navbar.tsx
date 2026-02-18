@@ -88,9 +88,9 @@ export default function Navbar() {
               <Search size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/50" />
             </div>
             {navItems.map((item, i) => (
-              <a key={i} href="#" className="block px-3 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 rounded">
+              <Link key={i} to={item.href} className="block px-3 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 rounded">
                 {item.label}
-              </a>
+              </Link>
             ))}
           </div>
         )}
