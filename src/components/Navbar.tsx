@@ -1,13 +1,15 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Search, Menu, X, ChevronDown, Smartphone, Cpu } from "lucide-react";
 
 const navItems = [
-  { label: "Mobiles & Tablets", hasDropdown: true },
-  { label: "Top 10", hasDropdown: true },
-  { label: "Compare", hasDropdown: true },
-  { label: "Upcoming Mobiles", hasDropdown: false },
-  { label: "News & Reviews", hasDropdown: true },
-  { label: "Brands", hasDropdown: true },
+  { label: "Mobiles & Tablets", hasDropdown: true, href: "/" },
+  { label: "Top 10", hasDropdown: true, href: "/" },
+  { label: "Compare", hasDropdown: true, href: "/" },
+  { label: "Upcoming Mobiles", hasDropdown: false, href: "/" },
+  { label: "News & Reviews", hasDropdown: true, href: "/" },
+  { label: "Phone Finder", hasDropdown: false, href: "/phone-finder" },
+  { label: "Brands", hasDropdown: false, href: "/brands" },
 ];
 
 const latestMobiles = ["Samsung Galaxy S26 Ultra", "Apple iPhone 17e", "Xiaomi 17 Pro Max", "OnePlus 15R"];
@@ -30,13 +32,13 @@ export default function Navbar() {
       <div className="nav-bg shadow-lg">
         <div className="max-w-screen-xl mx-auto px-4 flex items-center gap-4 h-14">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2 shrink-0">
+          <Link to="/" className="flex items-center gap-2 shrink-0">
             <div className="bg-primary rounded px-2 py-1 flex items-center gap-1">
               <Smartphone size={16} className="text-white" />
               <Cpu size={14} className="text-white" />
             </div>
             <span className="text-white font-bold text-xl tracking-tight">PhoneSpecs</span>
-          </a>
+          </Link>
 
           {/* Search bar */}
           <div className="hidden md:flex flex-1 max-w-xl relative mx-4">
@@ -62,14 +64,14 @@ export default function Navbar() {
         <div className="hidden md:block border-t border-white/10">
           <div className="max-w-screen-xl mx-auto px-4 flex items-center gap-1">
             {navItems.map((item, i) => (
-              <a
+              <Link
                 key={i}
-                href="#"
+                to={item.href}
                 className="flex items-center gap-1 px-3 py-2.5 text-sm text-white/80 hover:text-white hover:bg-white/10 rounded transition-colors whitespace-nowrap"
               >
                 {item.label}
                 {item.hasDropdown && <ChevronDown size={12} className="opacity-60" />}
-              </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -86,9 +88,9 @@ export default function Navbar() {
               <Search size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/50" />
             </div>
             {navItems.map((item, i) => (
-              <a key={i} href="#" className="block px-3 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 rounded">
+              <Link key={i} to={item.href} className="block px-3 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 rounded">
                 {item.label}
-              </a>
+              </Link>
             ))}
           </div>
         )}

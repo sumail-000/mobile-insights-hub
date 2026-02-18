@@ -52,7 +52,7 @@ const Index = () => {
                 <p className="text-background/60 text-sm">Filter by brand, price, specs, and more to find the perfect phone for you.</p>
               </div>
             </div>
-            <a href="#" className="bg-primary text-primary-foreground px-6 py-2.5 rounded-lg font-semibold text-sm hover:bg-primary/90 transition-colors whitespace-nowrap shadow-lg">
+            <a href="/phone-finder" className="bg-primary text-primary-foreground px-6 py-2.5 rounded-lg font-semibold text-sm hover:bg-primary/90 transition-colors whitespace-nowrap shadow-lg">
               Launch Phone Finder
             </a>
           </div>
