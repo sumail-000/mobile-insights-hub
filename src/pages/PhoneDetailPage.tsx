@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -771,18 +771,6 @@ export default function PhoneDetailPage() {
   const phone = getPhoneData(id || "samsung-galaxy-s25-ultra");
   const [activeTab, setActiveTab] = useState("INFO");
   const [wishlist, setWishlist] = useState(false);
-  const tabRef = useRef<HTMLDivElement>(null);
-  const [sticky, setSticky] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (tabRef.current) {
-        setSticky(tabRef.current.getBoundingClientRect().top <= 56);
-      }
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -927,11 +915,10 @@ export default function PhoneDetailPage() {
       </section>
 
       {/* ═══ STICKY TAB BAR ════════════════════════════════════════════════ */}
-      <div ref={tabRef} className="max-w-screen-xl mx-auto px-4 mb-4">
-        {/* Spacer when tab bar is sticky so content doesn't jump */}
-        {sticky && <div className="h-14" />}
-        <div className={`glass-card rounded-xl overflow-hidden transition-all ${sticky ? "fixed top-14 left-0 right-0 z-40 max-w-none rounded-none shadow-xl border-x-0 border-t-0" : ""}`}>
-          <div className={`flex ${sticky ? "max-w-screen-xl mx-auto px-4" : ""}`}>
+      <div className="sticky top-14 z-40 mb-4">
+        <div className="max-w-screen-xl mx-auto px-4">
+        <div className="glass-card rounded-xl overflow-hidden shadow-md border-b border-border/50">
+          <div className="flex">
             {TABS.map(tab => (
               <button
                 key={tab}
@@ -952,6 +939,7 @@ export default function PhoneDetailPage() {
               </button>
             ))}
           </div>
+        </div>
         </div>
       </div>
 
