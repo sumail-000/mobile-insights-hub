@@ -10,14 +10,14 @@ import {
 } from "lucide-react";
 
 // ─── Phone Images ──────────────────────────────────────────────────────────────
-import samsungImg from "@/assets/phones/samsung-s25-ultra.jpg";
-import iphoneImg from "@/assets/phones/iphone-16-pro-max.jpg";
-import oneplusImg from "@/assets/phones/oneplus-13.jpg";
-import motorolaImg from "@/assets/phones/motorola-edge-50.jpg";
-import xiaomiImg from "@/assets/phones/xiaomi-15-ultra.jpg";
-import realmeImg from "@/assets/phones/realme-p4.jpg";
-import googleImg from "@/assets/phones/google-pixel-9-pro.jpg";
-import vivoImg from "@/assets/phones/vivo-x200.jpg";
+import samsungImg from "@/assets/phones/samsung-s25-ultra.png";
+import iphoneImg from "@/assets/phones/iphone-16-pro-max.png";
+import oneplusImg from "@/assets/phones/oneplus-13.png";
+import motorolaImg from "@/assets/phones/motorola-edge-50.png";
+import xiaomiImg from "@/assets/phones/xiaomi-15-ultra.png";
+import realmeImg from "@/assets/phones/realme-p4.png";
+import googleImg from "@/assets/phones/google-pixel-9-pro.png";
+import vivoImg from "@/assets/phones/vivo-x200.png";
 
 // ─── Filter Categories (91mobiles-style) ──────────────────────────────────────
 const filterConfig = [
