@@ -1,6 +1,6 @@
 import { Slider } from "@/components/ui/slider";
 import { useState } from "react";
-import { Wifi, MemoryStick, HardDrive, Zap, Monitor, Brain, ChevronRight } from "lucide-react";
+import { Wifi, MemoryStick, HardDrive, Zap, Monitor, Brain, ChevronRight, Smartphone, Laptop, Tablet, Tv } from "lucide-react";
 import heroBanner from "@/assets/hero-banner.jpg";
 
 const popularFeatures = [
@@ -13,10 +13,10 @@ const popularFeatures = [
 ];
 
 const quickCategories = [
-  { label: "Mobiles", emoji: "📱" },
-  { label: "Laptops", emoji: "💻" },
-  { label: "Tablets", emoji: "📲" },
-  { label: "TVs", emoji: "📺" },
+  { label: "Mobiles", Icon: Smartphone },
+  { label: "Laptops", Icon: Laptop },
+  { label: "Tablets", Icon: Tablet },
+  { label: "TVs", Icon: Tv },
 ];
 
 const priceRanges = ["$200", "$400", "$600", "$800", "$1000+"];
@@ -49,16 +49,16 @@ export default function HeroFinder() {
       <div className="max-w-screen-xl mx-auto px-4 py-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Phone finder */}
-          <div className="md:col-span-2 bg-card rounded-xl border border-border p-5 shadow-sm">
+          <div className="md:col-span-2 glass-card rounded-xl p-5">
             <h2 className="text-xl font-bold mb-4">Let's Find a Mobile For You!</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Price filter */}
               <div>
                 <p className="text-sm font-medium text-muted-foreground mb-3">Price Range</p>
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="text-sm font-semibold text-foreground bg-muted px-3 py-1.5 rounded w-20 text-center">${minPrice}</span>
+                  <span className="text-sm font-semibold text-foreground bg-white/60 backdrop-blur-sm border border-border px-3 py-1.5 rounded w-20 text-center">${minPrice}</span>
                   <span className="text-muted-foreground text-sm">to</span>
-                  <span className="text-sm font-semibold text-foreground bg-muted px-3 py-1.5 rounded w-24 text-center">${maxPrice}</span>
+                  <span className="text-sm font-semibold text-foreground bg-white/60 backdrop-blur-sm border border-border px-3 py-1.5 rounded w-24 text-center">${maxPrice}</span>
                 </div>
                 <Slider
                   value={priceRange}
@@ -67,7 +67,7 @@ export default function HeroFinder() {
                   step={5}
                   className="mb-4"
                 />
-                <button className="w-full bg-primary text-primary-foreground py-2.5 rounded-lg font-semibold text-sm hover:bg-primary/90 transition-colors">
+                <button className="w-full bg-primary text-primary-foreground py-2.5 rounded-lg font-semibold text-sm hover:bg-primary/90 transition-colors shadow-md">
                   Find Mobiles
                 </button>
               </div>
@@ -89,23 +89,23 @@ export default function HeroFinder() {
 
           {/* Quick categories + price */}
           <div className="space-y-4">
-            <div className="bg-card rounded-xl border border-border p-4 shadow-sm">
+            <div className="glass-card rounded-xl p-4">
               <h3 className="font-semibold text-sm mb-3">What are you looking to buy?</h3>
               <div className="grid grid-cols-2 gap-2">
                 {quickCategories.map((c, i) => (
-                  <a key={i} href="#" className="flex items-center gap-2 bg-secondary rounded-lg px-3 py-2 text-sm font-medium hover:bg-primary/10 hover:text-primary transition-colors">
-                    <span className="text-base">{c.emoji}</span>
+                  <a key={i} href="#" className="flex items-center gap-2 bg-white/50 backdrop-blur-sm border border-white/60 rounded-lg px-3 py-2 text-sm font-medium hover:bg-primary/10 hover:text-primary hover:border-primary/30 transition-all">
+                    <c.Icon size={15} className="shrink-0 text-primary" />
                     <span>{c.label}</span>
                     <ChevronRight size={12} className="ml-auto opacity-50" />
                   </a>
                 ))}
               </div>
             </div>
-            <div className="bg-card rounded-xl border border-border p-4 shadow-sm">
+            <div className="glass-card rounded-xl p-4">
               <h3 className="font-semibold text-sm mb-3">Mobiles by Price</h3>
               <div className="grid grid-cols-2 gap-1.5">
                 {priceRanges.map((p, i) => (
-                  <a key={i} href="#" className="text-xs text-foreground bg-secondary hover:bg-primary/10 hover:text-primary rounded px-2 py-1.5 text-center transition-colors font-medium">
+                  <a key={i} href="#" className="text-xs text-foreground bg-white/50 backdrop-blur-sm border border-white/60 hover:bg-primary/10 hover:text-primary hover:border-primary/30 rounded px-2 py-1.5 text-center transition-all font-medium">
                     Under {p}
                   </a>
                 ))}

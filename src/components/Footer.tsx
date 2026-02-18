@@ -1,4 +1,4 @@
-import { Facebook, Twitter, Youtube, Instagram, ChevronRight } from "lucide-react";
+import { Facebook, Twitter, Youtube, Instagram, ChevronRight, Smartphone, Cpu } from "lucide-react";
 
 const footerLinks = [
   "Contact Us", "Compare", "Phone Finder", "Top 10", "Privacy Policy", "Sitemap", "About Us", "Terms & Conditions", "Mobile Specifications Database",
@@ -53,7 +53,11 @@ export default function Footer() {
           </div>
           <div className="text-center">
             <div className="flex items-center gap-1.5 justify-center mb-1">
-              <span className="text-background/90 font-bold text-lg">📱 PhoneSpecs</span>
+              <div className="bg-primary rounded px-1.5 py-0.5 flex items-center gap-1">
+                <Smartphone size={12} className="text-white" />
+                <Cpu size={10} className="text-white" />
+              </div>
+              <span className="text-background/90 font-bold text-lg">PhoneSpecs</span>
             </div>
             <p className="text-background/40 text-xs">© 2026 PhoneSpecs. All rights reserved.</p>
             <p className="text-background/30 text-xs">The ultimate mobile phone specifications database.</p>
