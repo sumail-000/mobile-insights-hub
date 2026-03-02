@@ -777,7 +777,7 @@ export default function PhoneDetailPage() {
       <Navbar />
 
       {/* Breadcrumb */}
-      <div className="max-w-screen-xl mx-auto px-4 pt-4 pb-1">
+      <div className="px-4 pt-4 pb-1">
         <nav className="flex items-center gap-1.5 text-xs text-muted-foreground">
           <Link to="/" className="hover:text-primary transition-colors">Home</Link>
           <ChevronRight size={12} />
@@ -790,7 +790,7 @@ export default function PhoneDetailPage() {
       </div>
 
       {/* ═══ HERO SECTION ═══════════════════════════════════════════════════ */}
-      <section className="max-w-screen-xl mx-auto px-4 py-4">
+      <section className="px-4 py-4">
         <div className="glass-card rounded-2xl overflow-hidden">
           {/* Brand color accent bar */}
           <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, ${phone.brandColor}, ${phone.brandColor}88)` }} />
@@ -916,7 +916,7 @@ export default function PhoneDetailPage() {
 
       {/* ═══ STICKY TAB BAR ════════════════════════════════════════════════ */}
       <div className="sticky top-14 z-40 mb-4">
-        <div className="max-w-screen-xl mx-auto px-4">
+        <div className="px-4">
         <div className="glass-card rounded-xl overflow-hidden shadow-md border-b border-border/50">
           <div className="flex">
             {TABS.map(tab => (
@@ -944,7 +944,7 @@ export default function PhoneDetailPage() {
       </div>
 
       {/* ═══ TAB CONTENT ═══════════════════════════════════════════════════ */}
-      <div className="max-w-screen-xl mx-auto px-4 pb-6">
+      <div className="px-4 pb-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
 
           {/* ── Main Content ─────────────────────────────────────────────── */}
@@ -1246,7 +1246,7 @@ export default function PhoneDetailPage() {
       </div>
 
       {/* ═══ POPULAR MOBILES CAROUSEL ═══════════════════════════════════════ */}
-      <section className="max-w-screen-xl mx-auto px-4 pb-8">
+      <section className="px-4 pb-8">
         <div className="glass-card rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-base font-bold">Popular Mobiles</h2>

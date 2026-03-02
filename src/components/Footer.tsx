@@ -15,7 +15,7 @@ export default function Footer() {
     <footer className="mt-6 bg-foreground text-background">
       {/* Main footer links */}
       <div className="border-b border-background/10 py-4">
-        <div className="max-w-screen-xl mx-auto px-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+        <div className="px-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
           {footerLinks.map((link, i) => (
             <a key={i} href="#" className="text-background/70 hover:text-primary text-xs transition-colors">
               {link}
@@ -25,7 +25,7 @@ export default function Footer() {
       </div>
 
       {/* New phones grid */}
-      <div className="max-w-screen-xl mx-auto px-4 py-6">
+      <div className="px-4 py-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="md:col-span-4">
             <h4 className="text-background/90 font-bold text-sm mb-3 uppercase tracking-wide">New Mobile Phones</h4>

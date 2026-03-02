@@ -113,7 +113,7 @@ export default function PhonesSection({ title, phones }: PhonesSectionProps) {
   };
 
   return (
-    <section className="max-w-screen-xl mx-auto px-4 py-3">
+    <section className="px-4 py-3">
       <div className="glass-card rounded-xl p-5">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-bold">{title}</h2>

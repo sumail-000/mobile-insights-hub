@@ -598,7 +598,7 @@ export default function ComparePage() {
       <Navbar />
 
       {/* ─── Header ─────────────────────────────────────────────────────────── */}
-      <div className="max-w-screen-xl mx-auto px-4 pt-4 pb-2">
+      <div className="px-4 pt-4 pb-2">
         <nav className="flex items-center gap-1.5 text-xs text-muted-foreground mb-4">
           <Link to="/" className="hover:text-primary transition-colors">Home</Link>
           <ChevronRight size={12} />
@@ -620,7 +620,7 @@ export default function ComparePage() {
       </div>
 
       {/* ─── Phone Selector Cards ────────────────────────────────────────────── */}
-      <div className="max-w-screen-xl mx-auto px-4 py-4">
+      <div className="px-4 py-4">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-6">
           {[0, 1, 2].map(slot => {
             const phone = selectedPhones[slot];

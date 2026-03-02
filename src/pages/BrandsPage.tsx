@@ -380,7 +380,7 @@ export default function BrandsPage() {
             <div className="absolute top-0 left-1/4 w-80 h-80 bg-primary/20 rounded-full blur-3xl" />
             <div className="absolute -bottom-20 right-1/4 w-60 h-60 bg-primary/10 rounded-full blur-2xl" />
           </div>
-          <div className="max-w-screen-xl mx-auto px-4 py-10 relative z-10">
+          <div className="px-4 py-10 relative z-10">
             {selectedBrand ? (
               <div>
                 <div className="flex items-center gap-2 mb-1">
@@ -420,7 +420,7 @@ export default function BrandsPage() {
           </div>
         </div>
 
-        <div className="max-w-screen-xl mx-auto px-4 py-6">
+        <div className="px-4 py-6">
           {/* Brand detail view */}
           {selectedBrand && selectedBrandData ? (
             <BrandDetailPage brand={selectedBrandData} onBack={() => setSelectedBrand(null)} />

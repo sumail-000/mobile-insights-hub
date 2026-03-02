@@ -567,7 +567,7 @@ export default function PhoneFinderPage() {
             <div className="absolute -bottom-16 right-16 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
             <div className="absolute top-4 right-1/3 w-40 h-40 bg-blue-500/10 rounded-full blur-2xl" />
           </div>
-          <div className="max-w-screen-xl mx-auto px-4 py-10 relative z-10">
+          <div className="px-4 py-10 relative z-10">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-primary text-xs font-bold uppercase tracking-widest">Advanced Search</span>
               <div className="h-px flex-1 max-w-[60px] bg-primary/30" />
@@ -589,7 +589,7 @@ export default function PhoneFinderPage() {
 
         {/* Quick price bar */}
         <div className="bg-foreground/95 border-b border-white/10">
-          <div className="max-w-screen-xl mx-auto px-4 py-2 flex items-center gap-2 overflow-x-auto scrollbar-hide">
+          <div className="px-4 py-2 flex items-center gap-2 overflow-x-auto scrollbar-hide">
             <span className="text-white/40 text-xs whitespace-nowrap shrink-0 font-medium">Quick Filter:</span>
             {[
               ["Under $300", 0, 300], ["$300–$600", 300, 600],
@@ -627,7 +627,7 @@ export default function PhoneFinderPage() {
           </div>
         </div>
 
-        <div className="max-w-screen-xl mx-auto px-4 py-6">
+        <div className="px-4 py-6">
           {/* Mobile filter toggle */}
           <div className="lg:hidden mb-4">
             <button

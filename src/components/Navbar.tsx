@@ -30,7 +30,7 @@ export default function Navbar() {
 
       {/* Main nav */}
       <div className="nav-bg shadow-lg">
-        <div className="max-w-screen-xl mx-auto px-4 flex items-center gap-4 h-14">
+        <div className="px-4 flex items-center gap-4 h-14">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 shrink-0">
             <div className="bg-primary rounded px-2 py-1 flex items-center gap-1">
@@ -62,7 +62,7 @@ export default function Navbar() {
 
         {/* Nav links */}
         <div className="hidden md:block border-t border-white/10">
-          <div className="max-w-screen-xl mx-auto px-4 flex items-center gap-1">
+          <div className="px-4 flex items-center gap-1">
             {navItems.map((item, i) => (
               <Link
                 key={i}

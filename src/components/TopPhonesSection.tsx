@@ -72,7 +72,7 @@ function TopList({ title, items, valueLabel, headerColor }: { title: string; ite
 
 export default function TopPhonesSection() {
   return (
-    <section className="max-w-screen-xl mx-auto px-4 py-3">
+    <section className="px-4 py-3">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Top by interest */}
         <TopList

@@ -87,7 +87,7 @@ export default function BrandsSection() {
   };
 
   return (
-    <section className="max-w-screen-xl mx-auto px-4 py-4">
+    <section className="px-4 py-4">
       <div className="glass-card rounded-2xl p-5">
         <div className="flex items-center justify-between mb-5">
           <div>

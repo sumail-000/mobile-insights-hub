@@ -42,7 +42,7 @@ const categoryColors: Record<string, string> = {
 
 export default function NewsSection() {
   return (
-    <section className="max-w-screen-xl mx-auto px-4 py-3">
+    <section className="px-4 py-3">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Latest News */}
         <div className="lg:col-span-2 glass-card rounded-xl p-5">

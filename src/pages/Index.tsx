@@ -40,7 +40,7 @@ const Index = () => {
         <TopPhonesSection />
 
         {/* Phone Finder quick access banner */}
-        <section className="max-w-screen-xl mx-auto px-4 py-3">
+        <section className="px-4 py-3">
           <div className="bg-gradient-to-r from-foreground to-foreground/80 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 relative overflow-hidden">
             <div className="absolute right-32 top-0 bottom-0 w-32 rounded-full bg-primary/10 blur-2xl pointer-events-none"></div>
             <div className="flex items-center gap-3">

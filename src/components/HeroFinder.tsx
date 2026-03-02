@@ -33,7 +33,7 @@ export default function HeroFinder() {
       <div className="relative h-52 md:h-72 lg:h-80 overflow-hidden">
         <img src={heroBanner} alt="Latest Smartphones" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent flex items-center">
-          <div className="px-6 md:px-10 max-w-screen-xl mx-auto w-full">
+          <div className="px-6 md:px-10 w-full">
             <p className="text-primary text-sm font-semibold uppercase tracking-wider mb-1">PhoneSpecs 2026</p>
             <h1 className="text-white text-2xl md:text-4xl font-bold leading-tight mb-2">
               Find Your Perfect<br />Smartphone
@@ -46,7 +46,7 @@ export default function HeroFinder() {
       </div>
 
       {/* Finder tool */}
-      <div className="max-w-screen-xl mx-auto px-4 py-6">
+      <div className="px-4 py-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Phone finder */}
           <div className="md:col-span-2 glass-card rounded-xl p-5">
