@@ -36,6 +36,21 @@ const phonesDB: Record<string, PhoneData> = {
     userRating: 4.8,
     ratingCount: "4,737",
     verdict: "The Galaxy S25 Ultra is Samsung's best ever smartphone. With its Snapdragon 8 Elite chip, titanium design, and exceptional S Pen experience, it sets the benchmark for Android flagships in 2025.",
+    pros: [
+      "Snapdragon 8 Elite delivers exceptional performance",
+      "200MP camera with incredible detail and zoom",
+      "Premium titanium build with IP68 rating",
+      "S Pen integration for productivity",
+      "Stunning 6.9\" QHD+ AMOLED display",
+      "Long battery life with 45W fast charging",
+    ],
+    cons: [
+      "Very expensive starting price",
+      "Heavy at 218g",
+      "No microSD card slot",
+      "Charging speed slower than competitors",
+      "Large size may not suit everyone",
+    ],
     quickSpecs: [
       { icon: Monitor, label: "Display", value: "6.9\" QHD+ AMOLED, 120Hz" },
       { icon: Cpu, label: "Chipset", value: "Snapdragon 8 Elite" },
@@ -193,6 +208,21 @@ const phonesDB: Record<string, PhoneData> = {
     userRating: 4.8,
     ratingCount: "8,219",
     verdict: "The iPhone 16 Pro Max is Apple's most capable iPhone yet. The A18 Pro chip delivers desktop-class performance, the Camera Control button is a genuinely useful hardware addition, and the 5x periscope zoom brings it level with Android's best.",
+    pros: [
+      "A18 Pro chip with unmatched performance",
+      "Camera Control button is genuinely useful",
+      "Excellent 5x periscope telephoto camera",
+      "Best-in-class video recording capabilities",
+      "Premium titanium design",
+      "7 years of iOS updates guaranteed",
+    ],
+    cons: [
+      "Very expensive, especially higher storage",
+      "Heaviest iPhone ever at 227g",
+      "Charging speed slower than Android flagships",
+      "No USB-C to Lightning adapter included",
+      "Limited customization compared to Android",
+    ],
     quickSpecs: [
       { icon: Monitor, label: "Display", value: "6.9\" Super Retina XDR, 120Hz" },
       { icon: Cpu, label: "Chipset", value: "Apple A18 Pro" },
@@ -354,6 +384,21 @@ const phonesDB: Record<string, PhoneData> = {
     userRating: 4.6,
     ratingCount: "1,874",
     verdict: "The OnePlus 13 is a powerhouse flagship at a competitive price. Featuring the Snapdragon 8 Elite, a massive 6000 mAh battery with blazing 100W SuperVOOC charging, and a refined Hasselblad camera system, it punches well above its class.",
+    pros: [
+      "Massive 6000mAh battery with excellent life",
+      "Blazing fast 100W wired charging",
+      "Snapdragon 8 Elite performance",
+      "Hasselblad-tuned triple 50MP cameras",
+      "Competitive pricing for flagship specs",
+      "Alert slider for quick mute control",
+    ],
+    cons: [
+      "Only IP65 rating (not IP68)",
+      "OxygenOS has bloatware",
+      "No wireless charging in some regions",
+      "Camera processing can be inconsistent",
+      "Limited availability in some markets",
+    ],
     quickSpecs: [
       { icon: Monitor, label: "Display", value: "6.82\" AMOLED, 120Hz" },
       { icon: Cpu, label: "Chipset", value: "Snapdragon 8 Elite" },
@@ -511,6 +556,21 @@ const phonesDB: Record<string, PhoneData> = {
     userRating: 4.5,
     ratingCount: "1,633",
     verdict: "The Pixel 9 Pro is Google's best phone ever. With the in-house Tensor G4 chip powering incredible AI features, a brand-new polished design, and class-leading computational photography, it's the ultimate Android AI phone.",
+    pros: [
+      "Best-in-class AI features with Gemini Nano",
+      "Exceptional computational photography",
+      "Clean Android experience with 7 years updates",
+      "Compact 6.3\" size with flagship specs",
+      "Excellent build quality and design",
+      "Magic Eraser and AI photo editing",
+    ],
+    cons: [
+      "Tensor G4 not as powerful as Snapdragon",
+      "Can get warm under heavy load",
+      "Expensive for the specs",
+      "Slower charging than competitors",
+      "Limited availability outside US",
+    ],
     quickSpecs: [
       { icon: Monitor, label: "Display", value: "6.3\" LTPO OLED, 1-120Hz" },
       { icon: Cpu, label: "Chipset", value: "Google Tensor G4" },
@@ -683,6 +743,8 @@ interface PhoneData {
   userRating: number;
   ratingCount: string;
   verdict: string;
+  pros: string[];
+  cons: string[];
   quickSpecs: { icon: React.ElementType; label: string; value: string }[];
   specTable: { category: string; color: string; rows: { label: string; value: string }[] }[];
   relatedPhones: { name: string; image: string; price: string; score: number }[];
@@ -763,7 +825,7 @@ function SpecSection({ category, color, rows }: { category: string; color: strin
 }
 
 // ─── Tab Bar ───────────────────────────────────────────────────────────────────
-const TABS = ["INFO", "SPECS", "COMPARE", "PICTURES"];
+const TABS = ["INFO", "SPECS", "REVIEWS"];
 
 // ─── Main Page ─────────────────────────────────────────────────────────────────
 export default function PhoneDetailPage() {
@@ -822,24 +884,13 @@ export default function PhoneDetailPage() {
                   {/* Wishlist button */}
                   <button
                     onClick={() => setWishlist(!wishlist)}
+                    aria-label={wishlist ? "Remove from wishlist" : "Add to wishlist"}
                     className="absolute top-3 right-3 z-20 glass rounded-full p-2 backdrop-blur-sm border border-white/20 hover:border-red-400/50 transition-all"
                   >
                     <Heart size={16} className={wishlist ? "fill-red-500 text-red-500" : "text-foreground"} />
                   </button>
                 </div>
 
-                {/* Thumbnail row */}
-                <div className="flex gap-2">
-                  {[phone.image, phone.image, phone.image].map((img, i) => (
-                    <div
-                      key={i}
-                      className={`w-14 h-14 rounded-xl border-2 flex items-center justify-center overflow-hidden cursor-pointer transition-all ${i === 0 ? "border-primary" : "border-border/50 hover:border-primary/50"}`}
-                      style={{ backgroundColor: phone.bgColor }}
-                    >
-                      <img src={img} alt="" className="h-10 w-auto object-contain" />
-                    </div>
-                  ))}
-                </div>
               </div>
 
               {/* ── Right: Phone Info ─────────────────────────────────────── */}
@@ -886,18 +937,39 @@ export default function PhoneDetailPage() {
 
                 {/* Action buttons */}
                 <div className="flex flex-wrap gap-3">
-                  <button
+                  <a
+                    href={`https://www.amazon.com/s?k=${encodeURIComponent(phone.name)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-primary-foreground shadow-lg hover:opacity-90 transition-all active:scale-95"
                     style={{ background: `linear-gradient(135deg, ${phone.brandColor}, ${phone.brandColor}cc)` }}
                   >
                     <ShoppingCart size={16} />
                     Buy Now
-                  </button>
-                  <button className="glass-card flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-sm hover:border-primary/50 transition-all active:scale-95">
+                  </a>
+                  <Link
+                    to="/compare"
+                    state={{ phone }}
+                    className="glass-card flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-sm hover:border-primary/50 transition-all active:scale-95"
+                  >
                     <GitCompare size={16} className="text-primary" />
                     Compare
-                  </button>
-                  <button className="glass-card flex items-center gap-2 px-4 py-3 rounded-xl font-bold text-sm hover:border-primary/50 transition-all active:scale-95">
+                  </Link>
+                  <button
+                    onClick={() => {
+                      if (navigator.share) {
+                        navigator.share({
+                          title: phone.name,
+                          text: `Check out ${phone.name} - ${phone.verdict.slice(0, 100)}...`,
+                          url: window.location.href,
+                        }).catch(() => {});
+                      } else {
+                        navigator.clipboard.writeText(window.location.href);
+                        alert('Link copied to clipboard!');
+                      }
+                    }}
+                    className="glass-card flex items-center gap-2 px-4 py-3 rounded-xl font-bold text-sm hover:border-primary/50 transition-all active:scale-95"
+                  >
                     <Share2 size={16} className="text-muted-foreground" />
                     Share
                   </button>
@@ -907,6 +979,38 @@ export default function PhoneDetailPage() {
                 <div className="mt-5 p-4 rounded-xl border-l-4 bg-primary/5" style={{ borderColor: phone.brandColor }}>
                   <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground mb-1.5">Expert Verdict</p>
                   <p className="text-sm text-foreground leading-relaxed">{phone.verdict}</p>
+                </div>
+
+                {/* Pros & Cons */}
+                <div className="mt-5 grid md:grid-cols-2 gap-4">
+                  <div className="glass-card rounded-xl p-4">
+                    <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-green-600" />
+                      Pros
+                    </h3>
+                    <ul className="space-y-2">
+                      {phone.pros.map((pro, i) => (
+                        <li key={i} className="text-sm text-foreground flex gap-2 items-start">
+                          <span className="text-green-600 font-bold shrink-0">+</span>
+                          <span>{pro}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="glass-card rounded-xl p-4">
+                    <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
+                      <ChevronDown size={16} className="text-red-600 rotate-180" />
+                      Cons
+                    </h3>
+                    <ul className="space-y-2">
+                      {phone.cons.map((con, i) => (
+                        <li key={i} className="text-sm text-foreground flex gap-2 items-start">
+                          <span className="text-red-600 font-bold shrink-0">−</span>
+                          <span>{con}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1136,37 +1240,20 @@ export default function PhoneDetailPage() {
               </div>
             )}
 
-            {/* COMPARE TAB */}
-            {activeTab === "COMPARE" && (
-              <div className="glass-card rounded-2xl p-6 text-center">
-                <GitCompare size={40} className="text-primary mx-auto mb-3 opacity-60" />
-                <h2 className="text-lg font-bold mb-2">Compare with other phones</h2>
-                <p className="text-sm text-muted-foreground mb-4">Select phones to compare side-by-side with {phone.name}</p>
-                <Link to="/phone-finder" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-primary/90 transition-colors">
-                  Open Phone Finder
-                  <ExternalLink size={14} />
-                </Link>
-              </div>
-            )}
-
-            {/* PICTURES TAB */}
-            {activeTab === "PICTURES" && (
-              <div className="glass-card rounded-2xl p-5">
-                <h2 className="text-base font-bold mb-4">Official Images</h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  {Array.from({ length: 6 }).map((_, i) => (
-                    <div
-                      key={i}
-                      className="aspect-[3/4] rounded-xl overflow-hidden border border-border/50 flex items-center justify-center cursor-pointer hover:border-primary/50 transition-all group"
-                      style={{ backgroundColor: phone.bgColor }}
-                    >
-                      <img
-                        src={phone.image}
-                        alt={`${phone.name} view ${i + 1}`}
-                        className="h-full w-auto object-contain p-4 group-hover:scale-105 transition-transform duration-300 drop-shadow-lg"
-                      />
-                    </div>
-                  ))}
+            {/* REVIEWS TAB */}
+            {activeTab === "REVIEWS" && (
+              <div className="space-y-4">
+                <div className="glass-card rounded-2xl p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-lg font-bold">User Reviews</h2>
+                    <button className="bg-primary text-primary-foreground px-4 py-2 rounded-xl font-bold text-sm hover:bg-primary/90 transition-colors">
+                      Write Review
+                    </button>
+                  </div>
+                  <div className="text-center py-12">
+                    <Star size={48} className="text-muted-foreground mx-auto mb-3 opacity-40" />
+                    <p className="text-muted-foreground text-sm">No reviews yet. Be the first to review {phone.name}!</p>
+                  </div>
                 </div>
               </div>
             )}
@@ -1181,13 +1268,16 @@ export default function PhoneDetailPage() {
                 <div className="text-xl font-black mb-0.5">{phone.price}</div>
                 <div className="text-xs text-muted-foreground mb-4">{phone.priceINR} · Free delivery</div>
 
-                <button
+                <a
+                  href={`https://www.amazon.com/s?k=${encodeURIComponent(phone.name)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-full py-3 rounded-xl font-bold text-sm text-primary-foreground mb-2 hover:opacity-90 transition-all flex items-center justify-center gap-2"
                   style={{ background: `linear-gradient(135deg, ${phone.brandColor}, ${phone.brandColor}cc)` }}
                 >
                   <ShoppingCart size={16} />
                   Buy on Amazon
-                </button>
+                </a>
                 <button className="w-full glass-card py-3 rounded-xl font-bold text-sm hover:border-primary/50 transition-all flex items-center justify-center gap-2">
                   <ExternalLink size={16} className="text-primary" />
                   View All Stores
@@ -1237,7 +1327,7 @@ export default function PhoneDetailPage() {
             </div>
 
             {/* Updated date */}
-            <div className="glass-card rounded-xl px-4 py-3 flex items-center justify-between">
+            <div className="glass-card rounded-2xl px-4 py-3 flex items-center justify-between">
               <span className="text-xs text-muted-foreground">Mobiles › {phone.name}</span>
               <span className="text-xs text-muted-foreground">Updated: Feb 18, 2026</span>
             </div>
