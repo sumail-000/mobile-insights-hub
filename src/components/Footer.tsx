@@ -77,9 +77,9 @@ export default function Footer() {
                 <Smartphone size={12} className="text-white" />
                 <Cpu size={10} className="text-white" />
               </div>
-              <span className="text-background/90 font-bold text-lg">PhoneSpecs</span>
+              <span className="text-background/90 font-bold text-lg">MobilePhoneCompare</span>
             </div>
-            <p className="text-background/40 text-xs">© 2026 PhoneSpecs. All rights reserved.</p>
+            <p className="text-background/40 text-xs">© 2026 MobilePhoneCompare. All rights reserved.</p>
             <p className="text-background/30 text-xs">The ultimate mobile phone specifications database.</p>
           </div>
           <a href="#" className="text-primary text-xs font-semibold hover:underline flex items-center gap-1">

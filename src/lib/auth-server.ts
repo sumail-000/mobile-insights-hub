@@ -2,7 +2,7 @@ import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
 const SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || "phonespecs-secret-2026-change-in-prod"
+  process.env.JWT_SECRET || "mobilephonecompare-secret-2026-change-in-prod"
 );
 
 export interface JWTPayload {

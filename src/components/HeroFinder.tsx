@@ -63,7 +63,7 @@ export default function HeroFinder() {
         <img src={heroBanner} alt="Latest Smartphones" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-transparent flex items-center">
           <div className="px-6 md:px-10 w-full">
-            <p className="text-primary text-xs font-bold uppercase tracking-widest mb-2">PhoneSpecs 2026</p>
+            <p className="text-primary text-xs font-bold uppercase tracking-widest mb-2">MobilePhoneCompare 2026</p>
             <h1 className="text-white text-2xl md:text-4xl font-black leading-tight mb-2">
               Find Your Perfect<br />Smartphone
             </h1>

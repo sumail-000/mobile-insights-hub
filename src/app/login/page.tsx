@@ -55,7 +55,7 @@ export default function LoginPage() {
               <Cpu size={18} className="text-white" />
             </div>
             <h1 className="text-2xl font-black tracking-tight">Welcome back</h1>
-            <p className="text-sm text-muted-foreground mt-1">Sign in to your PhoneSpecs account</p>
+            <p className="text-sm text-muted-foreground mt-1">Sign in to your MobilePhoneCompare account</p>
           </div>
 
           {/* Card */}

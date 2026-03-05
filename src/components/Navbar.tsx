@@ -76,7 +76,7 @@ export default function Navbar() {
             <Smartphone size={16} className="text-white" />
             <Cpu size={14} className="text-white" />
           </div>
-          <span className="text-white font-bold text-xl tracking-tight">PhoneSpecs</span>
+          <span className="text-white font-bold text-xl tracking-tight">MobilePhoneCompare</span>
         </Link>
 
         {/* Search bar */}

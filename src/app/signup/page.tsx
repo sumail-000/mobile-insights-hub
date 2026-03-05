@@ -70,7 +70,7 @@ export default function SignupPage() {
                 <Smartphone size={22} className="text-white" />
                 <Cpu size={18} className="text-white" />
               </div>
-              <h2 className="text-2xl font-black tracking-tight mb-2">Join PhoneSpecs</h2>
+              <h2 className="text-2xl font-black tracking-tight mb-2">Join MobilePhoneCompare</h2>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 The ultimate mobile specifications database. Track, compare, and discover every phone on the market.
               </p>
