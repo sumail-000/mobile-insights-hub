@@ -13,7 +13,6 @@ const nextConfig: NextConfig = {
   },
   webpack(config) {
     config.resolve.symlinks = false;
-    config.resolve.caseSensitive = false;
     config.snapshot = {
       ...(config.snapshot || {}),
       managedPaths: [],
