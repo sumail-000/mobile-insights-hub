@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-import path from "path";
 
 const nextConfig: NextConfig = {
   eslint: { ignoreDuringBuilds: true },
@@ -12,16 +11,6 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "cdn.simpleicons.org" },
       { protocol: "https", hostname: "via.placeholder.com" },
     ],
-  },
-  webpack(config, { isServer }) {
-    const reactPath = path.resolve(process.cwd().toLowerCase(), "node_modules/react");
-    const reactDomPath = path.resolve(process.cwd().toLowerCase(), "node_modules/react-dom");
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      react: reactPath,
-      "react-dom": reactDomPath,
-    };
-    return config;
   },
 };
 
