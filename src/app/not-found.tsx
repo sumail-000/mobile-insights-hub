@@ -1,20 +1,13 @@
 "use client";
 
-
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Home, Search, Smartphone, ArrowLeft } from "lucide-react";
-
-
 import Navbar from "@/components/Navbar";
-
-
 import Footer from "@/components/Footer";
 
-
-
-const NotFound = () => {
+function NotFoundInner() {
   const pathname = usePathname();
 
   useEffect(() => {
@@ -62,7 +55,9 @@ const NotFound = () => {
       <Footer />
     </div>
   );
-};
+}
 
-export default NotFound;
+export default function NotFound() {
+  return <Suspense><NotFoundInner /></Suspense>;
+}
 
