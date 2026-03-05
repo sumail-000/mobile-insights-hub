@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import webpack from "webpack";
 
 const nextConfig: NextConfig = {
   eslint: { ignoreDuringBuilds: true },
@@ -11,6 +12,14 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "cdn.simpleicons.org" },
       { protocol: "https", hostname: "via.placeholder.com" },
     ],
+  },
+  webpack(config) {
+    config.plugins.push(
+      new webpack.NormalModuleReplacementPlugin(/.*/, (resource: { request: string }) => {
+        resource.request = resource.request.replace(/C:\\Inetpub/gi, "C:\\inetpub");
+      })
+    );
+    return config;
   },
 };
 
