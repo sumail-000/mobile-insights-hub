@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-import path from "path";
 
 const nextConfig: NextConfig = {
   eslint: { ignoreDuringBuilds: true },
@@ -13,10 +12,10 @@ const nextConfig: NextConfig = {
     ],
   },
   webpack(config) {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      react: path.resolve("./node_modules/react"),
-      "react-dom": path.resolve("./node_modules/react-dom"),
+    config.resolve.symlinks = false;
+    config.snapshot = {
+      ...(config.snapshot || {}),
+      managedPaths: [],
     };
     return config;
   },
