@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
+  serverExternalPackages: ["mysql2", "mysql2/promise", "seq-queue", "iconv-lite", "denque", "lru-cache", "long", "cardinal", "readable-stream"],
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "fdn2.gsmarena.com" },
@@ -10,15 +11,6 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "cdn.simpleicons.org" },
       { protocol: "https", hostname: "via.placeholder.com" },
     ],
-  },
-  webpack(config) {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      react: require.resolve("react"),
-      "react-dom": require.resolve("react-dom"),
-      "react-dom/server": require.resolve("react-dom/server"),
-    };
-    return config;
   },
 };
 
