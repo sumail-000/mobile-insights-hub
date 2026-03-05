@@ -12,10 +12,11 @@ const nextConfig: NextConfig = {
     ],
   },
   webpack(config) {
-    config.resolve.symlinks = false;
-    config.snapshot = {
-      ...(config.snapshot || {}),
-      managedPaths: [],
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      react: require.resolve("react"),
+      "react-dom": require.resolve("react-dom"),
+      "react-dom/server": require.resolve("react-dom/server"),
     };
     return config;
   },
