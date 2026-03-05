@@ -3,7 +3,6 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
-  output: "standalone",
   serverExternalPackages: ["mysql2", "mysql2/promise", "seq-queue", "iconv-lite", "denque", "lru-cache", "long", "cardinal", "readable-stream"],
   images: {
     remotePatterns: [
