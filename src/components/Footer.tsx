@@ -1,13 +1,33 @@
 import { Facebook, Twitter, Youtube, Instagram, ChevronRight, Smartphone, Cpu } from "lucide-react";
+import Link from "next/link";
 
 const footerLinks = [
-  "Contact Us", "Compare", "Phone Finder", "Top 10", "Privacy Policy", "Sitemap", "About Us", "Terms & Conditions", "Mobile Specifications Database",
+  { label: "Compare", href: "/compare" },
+  { label: "Phone Finder", href: "/phone-finder" },
+  { label: "Brands", href: "/brands" },
+  { label: "Top 10", href: "/top-10" },
+  { label: "News & Reviews", href: "/news" },
+  { label: "Upcoming Mobiles", href: "/upcoming" },
+  { label: "About Us", href: "/" },
+  { label: "Contact Us", href: "/" },
+  { label: "Privacy Policy", href: "/" },
+  { label: "Terms & Conditions", href: "/" },
+  { label: "Mobile Specifications Database", href: "/phone-finder" },
 ];
 
 const newPhones = [
-  "Samsung Galaxy F70e", "Apple iPhone 17e", "Lava Yuva Star 3", "OnePlus 15R",
-  "Oppo A6i+", "Infinix GT 50 Pro", "Oppo A6x 4G", "Oppo A6v",
-  "Samsung Galaxy S26 Ultra", "Oppo K14x 5G", "Lava Bold N2", "Xiaomi 17 Ultra",
+  { name: "Samsung Galaxy F70e", slug: "samsung-galaxy-f70e" },
+  { name: "Apple iPhone 17e", slug: "apple-iphone-17e" },
+  { name: "OnePlus 15R", slug: "oneplus-15r" },
+  { name: "Infinix GT 50 Pro", slug: "infinix-gt-50-pro" },
+  { name: "Samsung Galaxy S26 Ultra", slug: "samsung-galaxy-s26-ultra" },
+  { name: "Xiaomi 17 Ultra", slug: "xiaomi-17-ultra" },
+  { name: "Google Pixel 10 Pro", slug: "google-pixel-10-pro" },
+  { name: "OnePlus Open 2", slug: "oneplus-open-2" },
+  { name: "Vivo X200 Pro", slug: "vivo-x200-pro" },
+  { name: "Motorola Razr 50 Ultra", slug: "motorola-razr-50-ultra" },
+  { name: "Realme GT 7 Pro", slug: "realme-gt-7-pro" },
+  { name: "iPhone 17 Pro Max", slug: "iphone-17-pro-max" },
 ];
 
 export default function Footer() {
@@ -17,9 +37,9 @@ export default function Footer() {
       <div className="border-b border-background/10 py-4">
         <div className="px-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
           {footerLinks.map((link, i) => (
-            <a key={i} href="#" className="text-background/70 hover:text-primary text-xs transition-colors">
-              {link}
-            </a>
+            <Link key={i} href={link.href} className="text-background/70 hover:text-primary text-xs transition-colors">
+              {link.label}
+            </Link>
           ))}
         </div>
       </div>
@@ -31,9 +51,9 @@ export default function Footer() {
             <h4 className="text-background/90 font-bold text-sm mb-3 uppercase tracking-wide">New Mobile Phones</h4>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
               {newPhones.map((phone, i) => (
-                <a key={i} href="#" className="text-background/60 hover:text-primary text-xs py-0.5 transition-colors">
-                  {phone}
-                </a>
+                <Link key={i} href={`/phone/${phone.slug}`} className="text-background/60 hover:text-primary text-xs py-0.5 transition-colors">
+                  {phone.name}
+                </Link>
               ))}
             </div>
           </div>

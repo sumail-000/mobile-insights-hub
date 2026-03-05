@@ -29,30 +29,31 @@ const latestPhones = [
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen page-bg">
       <Navbar />
       <main>
         <HeroFinder />
         <BrandsSection />
-        <PhonesSection title="Upcoming Mobiles" phones={upcomingPhones} />
-        <PhonesSection title="Latest and Popular Mobiles" phones={latestPhones} />
+        <PhonesSection title="Upcoming Mobiles" phones={upcomingPhones} viewAllHref="/upcoming" />
+        <PhonesSection title="Latest and Popular Mobiles" phones={latestPhones} viewAllHref="/phone-finder" />
         <NewsSection />
         <TopPhonesSection />
 
         {/* Phone Finder quick access banner */}
         <section className="px-4 py-3">
-          <div className="bg-gradient-to-r from-foreground to-foreground/80 rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 relative overflow-hidden">
-            <div className="absolute right-32 top-0 bottom-0 w-32 rounded-full bg-primary/10 blur-2xl pointer-events-none"></div>
+          <div className="glass-card rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 relative overflow-hidden">
+            <div className="absolute right-0 top-0 bottom-0 w-48 rounded-full bg-primary/10 blur-3xl pointer-events-none" />
+            <div className="absolute left-1/3 top-0 bottom-0 w-32 rounded-full bg-blue-500/5 blur-2xl pointer-events-none" />
             <div className="flex items-center gap-3">
-              <div className="glass rounded-xl p-3">
-                <Search size={22} className="text-white" />
+              <div className="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center shrink-0">
+                <Search size={22} className="text-primary" />
               </div>
               <div>
-                <h2 className="text-background text-xl font-bold mb-1">Complete Phone Finder</h2>
-                <p className="text-background/60 text-sm">Filter by brand, price, specs, and more to find the perfect phone for you.</p>
+                <h2 className="text-xl font-bold mb-1">Complete Phone Finder</h2>
+                <p className="text-muted-foreground text-sm">Filter by brand, price, specs, and more to find the perfect phone for you.</p>
               </div>
             </div>
-            <a href="/phone-finder" className="bg-primary text-primary-foreground px-6 py-2.5 rounded-lg font-semibold text-sm hover:bg-primary/90 transition-colors whitespace-nowrap shadow-lg">
+            <a href="/phone-finder" className="bg-primary text-primary-foreground px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-primary/90 transition-colors whitespace-nowrap shadow-lg shrink-0">
               Launch Phone Finder
             </a>
           </div>

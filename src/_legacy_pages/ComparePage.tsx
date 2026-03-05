@@ -594,7 +594,7 @@ export default function ComparePage() {
   const colCount = Math.max(activePhones.length, 2);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen page-bg">
       <Navbar />
 
       {/* ─── Header ─────────────────────────────────────────────────────────── */}
