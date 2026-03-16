@@ -12,6 +12,10 @@ export const metadata: Metadata = {
   },
   description: "The ultimate mobile phone specifications database. Compare phones, explore brands, find your perfect device.",
   keywords: ["mobile phones", "phone specs", "specifications", "compare phones", "smartphone database"],
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+  },
   openGraph: {
     type: "website",
     siteName: "MobilePhoneCompare",

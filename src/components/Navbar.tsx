@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Search, Menu, X, ChevronDown, Smartphone, Cpu, LogOut } from "lucide-react";
+import { Search, Menu, X, ChevronDown, LogOut } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { searchDevices } from "@/lib/api";
 import type { Device } from "@/lib/api";
@@ -71,12 +71,8 @@ export default function Navbar() {
       {/* Main nav row */}
       <div className="flex items-center gap-4 px-4 h-14 border-b border-white/10">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 shrink-0">
-          <div className="bg-primary rounded-lg px-2 py-1 flex items-center gap-1">
-            <Smartphone size={16} className="text-white" />
-            <Cpu size={14} className="text-white" />
-          </div>
-          <span className="text-white font-bold text-xl tracking-tight">MobilePhoneCompare</span>
+        <Link href="/" className="flex items-center shrink-0">
+          <span className="font-bold text-xl tracking-tight"><span className="text-white">Mobile</span><span className="text-primary">PhoneCompare</span></span>
         </Link>
 
         {/* Search bar */}
