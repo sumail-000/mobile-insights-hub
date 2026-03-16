@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.pyo
+brands_cache.json
+brands_devices.csv
+device_specifications.csv
+device_updates.json
+debug.log
+*.log
+gsmarena/
+api_keys.json

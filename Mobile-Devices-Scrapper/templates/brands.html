@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% if brand_name %}{{ brand_name }} Devices{% else %}Brands — GSMArena Scraper{% endif %}</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0e1117;
+      --surface: #161b26;
+      --surface2: #1e2535;
+      --border: #2a3347;
+      --accent: #ff6e14;
+      --accent2: #3b82f6;
+      --text: #e2e8f0;
+      --muted: #8494b0;
+      --green: #22c55e;
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #0e1117 0%, #161b26 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex; align-items: center; gap: 1.5rem;
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+    header h1 { font-size: 1.1rem; font-weight: 700; color: var(--accent); letter-spacing: 0.03em; }
+    header .breadcrumb { color: var(--muted); font-size: 0.85rem; }
+    header .breadcrumb a { color: var(--accent2); text-decoration: none; }
+    header .breadcrumb a:hover { text-decoration: underline; }
+    .header-actions { margin-left: auto; display: flex; gap: 0.75rem; align-items: center; }
+
+    /* Buttons */
+    .btn {
+      padding: 0.45rem 1rem; border-radius: 8px; border: none; cursor: pointer;
+      font-size: 0.82rem; font-weight: 600; transition: opacity 0.15s;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn-accent { background: var(--accent); color: #fff; }
+    .btn-blue  { background: var(--accent2); color: #fff; }
+    .btn-ghost { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+
+    /* Main */
+    main { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+
+    /* Stats bar */
+    .stats-bar {
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.5rem; margin-bottom: 2rem;
+    }
+    .stat { display: flex; flex-direction: column; gap: 0.15rem; }
+    .stat-val { font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+    .stat-lbl { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* Search */
+    .search-bar {
+      position: relative; margin-bottom: 1.5rem;
+    }
+    .search-bar input {
+      width: 100%; padding: 0.7rem 1rem 0.7rem 2.5rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; color: var(--text); font-size: 0.9rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    .search-bar input:focus { border-color: var(--accent2); }
+    .search-bar::before {
+      content: '🔍'; position: absolute; left: 0.7rem; top: 50%;
+      transform: translateY(-50%); font-size: 0.85rem;
+    }
+
+    /* Grid — brands */
+    .brands-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .brand-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem 1rem;
+      text-decoration: none; color: inherit;
+      display: flex; flex-direction: column; gap: 0.5rem;
+      transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .brand-card:hover {
+      border-color: var(--accent); transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(255,110,20,0.15);
+    }
+    .brand-name { font-size: 1rem; font-weight: 700; }
+    .brand-count {
+      font-size: 0.8rem; color: var(--muted);
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .badge {
+      background: rgba(255,110,20,0.15); color: var(--accent);
+      border-radius: 6px; padding: 0.15rem 0.5rem;
+      font-size: 0.72rem; font-weight: 700;
+    }
+    .badge-blue { background: rgba(59,130,246,0.15); color: var(--accent2); }
+
+    /* Devices table */
+    .devices-header {
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
+    }
+    .devices-header h2 { font-size: 1.2rem; font-weight: 700; }
+    .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: var(--surface2); }
+    th {
+      padding: 0.75rem 1rem; text-align: left;
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--muted); font-weight: 600; white-space: nowrap;
+    }
+    td {
+      padding: 0.75rem 1rem; border-top: 1px solid var(--border);
+      font-size: 0.88rem; vertical-align: middle;
+    }
+    tr:hover td { background: var(--surface2); }
+    .device-img { width: 44px; height: 44px; object-fit: contain; border-radius: 6px; background: var(--surface2); }
+    .device-img-placeholder {
+      width: 44px; height: 44px; border-radius: 6px;
+      background: var(--surface2); display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; color: var(--muted);
+    }
+    .device-name { font-weight: 600; color: var(--text); }
+    .device-name small { display: block; color: var(--muted); font-size: 0.75rem; font-weight: 400; margin-top: 0.1rem; }
+    .device-link {
+      color: var(--accent2); text-decoration: none; font-size: 0.8rem;
+      padding: 0.25rem 0.6rem; border-radius: 6px; border: 1px solid var(--accent2);
+      white-space: nowrap; transition: background 0.15s;
+    }
+    .device-link:hover { background: rgba(59,130,246,0.12); }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center; padding: 4rem 2rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+    .empty-state h3 { font-size: 1.1rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .empty-state p { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem; }
+
+    /* Progress bar */
+    .scrape-progress {
+      display: none; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem;
+    }
+    .scrape-progress.active { display: block; }
+    .progress-label { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.6rem; }
+    .progress-bar { background: var(--border); border-radius: 999px; height: 8px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 999px; transition: width 0.4s; }
+    .progress-msg { font-size: 0.78rem; color: var(--muted); margin-top: 0.5rem; }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      main { padding: 1rem; }
+      .brands-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📱 GSMArena Scraper</h1>
+  <div class="breadcrumb">
+    {% if brand_name %}
+      <a href="/brands">Brands</a> › {{ brand_name | e }}
+    {% else %}
+      Brands
+    {% endif %}
+  </div>
+  <div class="header-actions">
+    {% if not brand_name %}
+      <button class="btn btn-blue" onclick="scanBrands()">Fetch Brand List</button>
+      <button class="btn btn-ghost" onclick="clearCache()">Clear Cache</button>
+    {% else %}
+      <button class="btn btn-accent" onclick="scrapeBrand()">Scrape {{ brand_name }}</button>
+    {% endif %}
+  </div>
+</header>
+
+<main>
+
+  <!-- Progress Bar -->
+  <div class="scrape-progress" id="progressPanel">
+    <div class="progress-label" id="progressLabel">Scraping...</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div class="progress-msg" id="progressMsg"></div>
+  </div>
+
+  <!-- Stats Bar -->
+  {% if brands %}
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-val">{{ brands | length }}</span>
+      <span class="stat-lbl">Brands</span>
+    </div>
+    <div class="stat">
+      <span class="stat-val">{{ brands | sum(attribute='device_count') }}</span>
+      <span class="stat-lbl">Total Devices</span>
+    </div>
+    <div class="stat">
+      <span class="stat-val">{% if has_data %}✓ Cached{% else %}–{% endif %}</span>
+      <span class="stat-lbl">Data Source</span>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if brand_name %}
+    <!-- DEVICE LIST VIEW -->
+    <div class="devices-header">
+      <h2>{{ brand_name }} — {{ devices | length }} device(s)</h2>
+      <span class="badge badge-blue">{{ data_source or 'DB' }}</span>
+    </div>
+
+    {% if devices %}
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Filter devices..." oninput="filterDevices()"/>
+    </div>
+    <div class="table-wrap">
+      <table id="devicesTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Image</th>
+            <th>Device</th>
+            <th>Summary</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for d in devices %}
+          <tr>
+            <td style="color:var(--muted)">{{ loop.index }}</td>
+            <td>
+              {% if d.device_image %}
+                <img class="device-img" src="/img?url={{ d.device_image | urlencode }}" alt="" onerror="this.style.display='none'"/>
+              {% else %}
+                <div class="device-img-placeholder">📱</div>
+              {% endif %}
+            </td>
+            <td>
+              <div class="device-name">
+                {{ d.device_name }}
+                <small>{{ d.device_url.split('/')[-1] if d.device_url else '' }}</small>
+              </div>
+            </td>
+            <td style="color:var(--muted); font-size:0.8rem; max-width:200px;">{{ d.summary or '—' }}</td>
+            <td>
+              <a class="device-link" href="/device?url={{ d.device_url | urlencode }}" target="_blank">View Specs</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <h3>No devices scraped yet for {{ brand_name }}</h3>
+      <p>Click "Scrape {{ brand_name }}" to start collecting device data.</p>
+    </div>
+    {% endif %}
+
+  {% elif brands %}
+    <!-- BRANDS GRID VIEW -->
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search brands..." oninput="filterBrands()"/>
+    </div>
+    <div class="brands-grid" id="brandsGrid">
+      {% for brand in brands %}
+      <a class="brand-card" href="/brand?name={{ brand.name | urlencode }}">
+        <div class="brand-name">{{ brand.name }}</div>
+        <div class="brand-count">
+          <span class="badge">{{ brand.device_count }} devices</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+
+  {% else %}
+    <!-- EMPTY — no data yet -->
+    <div class="empty-state">
+      <h3>No brand data available</h3>
+      <p>Click "Fetch Brand List" to scan brands from GSMArena, or run the scraper first.</p>
+      <button class="btn btn-accent" onclick="scanBrands()">Fetch Brand List from GSMArena</button>
+    </div>
+  {% endif %}
+
+</main>
+
+<script>
+  function filterBrands() {
+    const q = document.getElementById('searchInput').value.toLowerCase();
+    document.querySelectorAll('.brand-card').forEach(el => {
+      el.style.display = el.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+  }
+
+  function filterDevices() {
+    const q = document.getElementById('searchInput').value.toLowerCase();
+    document.querySelectorAll('#devicesTable tbody tr').forEach(row => {
+      row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+  }
+
+  function scanBrands() {
+    fetch('/api/scan-brands')
+      .then(r => r.json())
+      .then(d => {
+        if (d.status === 'ok') {
+          alert(`Fetched ${d.count} brands. Reloading...`);
+          location.reload();
+        } else {
+          alert('Error: ' + d.message);
+        }
+      })
+      .catch(e => alert('Network error: ' + e));
+  }
+
+  function clearCache() {
+    if (!confirm('Clear brand cache?')) return;
+    fetch('/api/clear-cache', { method: 'POST' })
+      .then(r => r.json())
+      .then(d => { alert(d.status === 'ok' ? 'Cache cleared.' : 'Error: ' + d.message); })
+      .catch(e => alert('Network error: ' + e));
+  }
+
+  function scrapeBrand() {
+    const brandName = '{{ brand_name }}';
+    const brandUrl = '{{ request.url_root }}';
+    // Get the actual GSMArena URL from the CSV data or construct it
+    const urlFromRow = document.querySelector('.device-link');
+    if (!confirm(`Start scraping ${brandName}? This may take a while.`)) return;
+
+    const panel = document.getElementById('progressPanel');
+    panel.classList.add('active');
+
+    fetch('/api/scrape-brand', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: brandName, url: '' })
+    })
+    .then(r => r.json())
+    .then(d => {
+      if (d.status === 'started') {
+        pollProgress();
+      } else {
+        alert('Error: ' + (d.message || 'unknown'));
+      }
+    });
+  }
+
+  function pollProgress() {
+    const interval = setInterval(() => {
+      fetch('/api/status')
+        .then(r => r.json())
+        .then(s => {
+          document.getElementById('progressLabel').textContent =
+            `Scraping: ${s.done || 0} / ${s.total || '?'} devices`;
+          document.getElementById('progressFill').style.width = (s.progress || 0) + '%';
+          document.getElementById('progressMsg').textContent = s.message || '';
+          if (!s.running) {
+            clearInterval(interval);
+            document.getElementById('progressLabel').textContent = 'Done!';
+            setTimeout(() => location.reload(), 1500);
+          }
+        });
+    }, 1000);
+  }
+</script>
+</body>
+</html>

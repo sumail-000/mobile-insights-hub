@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GSMArena Scraper</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f6fa;
+      --surface: #ffffff;
+      --surface2: #f0f2f8;
+      --border: #d8dce8;
+      --text: #1a1d2e;
+      --muted: #6b7280;
+      --accent: #ff6e14;
+      --blue: #3b82f6;
+      --green: #16a34a;
+      --red: #dc2626;
+      --yellow: #ca8a04;
+      --shadow: 0 1px 4px rgba(0,0,0,0.08), 0 2px 12px rgba(0,0,0,0.05);
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 14px;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+    .logo { font-size: 1rem; font-weight: 700; color: var(--accent); letter-spacing: -0.01em; }
+    .logo span { color: var(--text); }
+    header nav { display: flex; gap: 0.25rem; }
+    header nav a {
+      padding: 0.35rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+    }
+    header nav a:hover { background: var(--surface2); color: var(--text); }
+    header nav a.active { background: var(--surface2); color: var(--text); font-weight: 600; }
+    .header-right { margin-left: auto; display: flex; gap: 0.6rem; align-items: center; }
+    .view-data-btn {
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.4rem 1rem;
+      background: var(--blue); color: #fff;
+      border-radius: 7px; text-decoration: none;
+      font-size: 0.82rem; font-weight: 600;
+      transition: opacity 0.15s;
+    }
+    .view-data-btn:hover { opacity: 0.88; }
+    .db-badge {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-size: 0.75rem; font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--muted);
+      cursor: default;
+    }
+    .db-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
+    .db-badge.connected { color: var(--green); border-color: #bbf7d0; background: #f0fdf4; }
+    .db-badge.connected .dot { background: var(--green); }
+    .db-badge.error { color: var(--red); border-color: #fecaca; background: #fef2f2; }
+    .db-badge.error .dot { background: var(--red); }
+
+    /* ── Main ── */
+    main { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+
+    /* ── Section cards ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+    .card h2 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .card h2 .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      padding: 0.45rem 1.1rem;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s, opacity 0.15s;
+      white-space: nowrap;
+    }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .btn-primary:hover:not(:disabled) { opacity: 0.88; }
+    .btn-blue   { background: var(--blue);  color: #fff; border-color: var(--blue); }
+    .btn-blue:hover:not(:disabled) { opacity: 0.88; }
+    .btn-green  { background: var(--green); color: #fff; border-color: var(--green); }
+    .btn-green:hover:not(:disabled) { opacity: 0.88; }
+    .btn-ghost  { background: var(--surface2); color: var(--text); }
+    .btn-ghost:hover:not(:disabled) { background: var(--border); }
+    .btn-sm { padding: 0.3rem 0.7rem; font-size: 0.76rem; }
+
+    /* ── Toolbar ── */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+    .toolbar-right { margin-left: auto; display: flex; gap: 0.5rem; }
+
+    /* ── Brand table ── */
+    .search-box {
+      position: relative;
+      flex: 1;
+      min-width: 180px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 0.4rem 0.75rem 0.4rem 2rem;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: var(--surface2);
+      font-size: 0.82rem;
+      color: var(--text);
+      outline: none;
+    }
+    .search-box input:focus { border-color: var(--blue); background: var(--surface); }
+    .search-box::before {
+      content: '🔍';
+      position: absolute;
+      left: 0.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.75rem;
+    }
+    .table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    thead tr { background: var(--surface2); }
+    th {
+      padding: 0.6rem 0.9rem;
+      text-align: left;
+      font-size: 0.73rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    td { padding: 0.6rem 0.9rem; border-top: 1px solid var(--border); vertical-align: middle; }
+    tbody tr:hover td { background: var(--surface2); }
+    .brand-name-cell { font-weight: 600; }
+    .count-badge {
+      display: inline-block;
+      background: rgba(255,110,20,0.1);
+      color: var(--accent);
+      border-radius: 5px;
+      padding: 0.1rem 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    input[type="checkbox"] {
+      width: 15px; height: 15px; accent-color: var(--accent); cursor: pointer;
+    }
+    .empty-row td {
+      text-align: center;
+      color: var(--muted);
+      padding: 2.5rem;
+      font-size: 0.85rem;
+    }
+
+    /* ── Progress ── */
+    .progress-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    @media (max-width: 640px) { .progress-grid { grid-template-columns: 1fr; } }
+    .stat-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .stat-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+    .stat-value { font-size: 1rem; font-weight: 700; color: var(--text); }
+    .progress-bar-wrap {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      height: 10px;
+      overflow: hidden;
+      margin-top: 0.4rem;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--blue));
+      transition: width 0.4s;
+    }
+    .progress-bar-fill.green { background: linear-gradient(90deg, var(--green), #22c55e); }
+
+    /* ── Console log ── */
+    .console-log {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      height: 160px;
+      overflow-y: auto;
+      font-family: 'Consolas', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .console-log .log-line { margin-bottom: 0.1rem; }
+    .console-log .log-line.err { color: var(--red); }
+    .console-log .log-line.ok  { color: var(--green); }
+
+    /* ── Completed brands list ── */
+    .completed-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+    .completed-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 0.45rem 0.75rem;
+      font-size: 0.82rem;
+    }
+    .completed-item .brand-tag { font-weight: 600; }
+    .completed-item .cnt { color: var(--muted); font-size: 0.76rem; }
+    .pill {
+      font-size: 0.7rem; font-weight: 600;
+      padding: 0.1rem 0.5rem;
+      border-radius: 999px;
+    }
+    .pill-green { background: rgba(22,163,74,0.1); color: var(--green); }
+    .pill-blue  { background: rgba(59,130,246,0.1); color: var(--blue); }
+
+    /* ── Notice banner ── */
+    .notice {
+      display: none;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.65rem 1rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      margin-bottom: 1rem;
+      border: 1px solid;
+    }
+    .notice.show { display: flex; }
+    .notice.info  { background: rgba(59,130,246,0.07); border-color: rgba(59,130,246,0.3); color: #1d4ed8; }
+    .notice.ok    { background: rgba(22,163,74,0.07);  border-color: rgba(22,163,74,0.3);  color: #15803d; }
+    .notice.error { background: rgba(220,38,38,0.07);  border-color: rgba(220,38,38,0.3);  color: var(--red); }
+
+    /* Spinner */
+    .spinner {
+      display: none;
+      width: 16px; height: 16px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    .spinner.show { display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* step numbers */
+    .step-num {
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="logo">GSM<span>Scraper</span></div>
+  <nav>
+    <a href="/" class="active">Scraper</a>
+    <a href="/brands">Browse Data</a>
+  </nav>
+  <div class="header-right">
+    <span class="db-badge" id="dbBadge" title="MySQL connection status">
+      <span class="dot"></span><span id="dbBadgeText">DB …</span>
+    </span>
+    <a class="view-data-btn" href="/brands">View Scraped Data →</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- Step 1: Scan Brands -->
+  <div class="card">
+    <h2><span class="step-num">1</span> Scan Brands from GSMArena</h2>
+
+    <div class="notice info show" id="scanNotice">
+      Click <strong>Scan Brands</strong> to fetch the brand list from GSMArena (cached for 24 h).
+    </div>
+
+    <div class="toolbar">
+      <button class="btn btn-primary" id="btnScan">Scan Brands</button>
+      <span class="spinner" id="scanSpinner"></span>
+      <button class="btn btn-ghost btn-sm" id="btnClearCache" title="Force fresh scan">Clear Cache</button>
+    </div>
+
+    <div class="toolbar" id="selectionToolbar" style="display:none">
+      <div class="search-box">
+        <input type="text" id="brandSearch" placeholder="Search brands..."/>
+      </div>
+      <div class="toolbar-right">
+        <button class="btn btn-ghost btn-sm" id="btnSelectAll">Select All</button>
+        <button class="btn btn-ghost btn-sm" id="btnDeselectAll">Deselect All</button>
+        <span id="selectedCount" style="font-size:0.8rem;color:var(--muted);margin-left:0.5rem;">0 selected</span>
+      </div>
+    </div>
+
+    <div class="table-wrap" id="brandsTableWrap" style="display:none">
+      <table id="brandsTable">
+        <thead>
+          <tr>
+            <th style="width:40px"></th>
+            <th>Brand</th>
+            <th>Devices on GSMArena</th>
+            <th>Already Scraped</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="brandsBody">
+          <tr class="empty-row"><td colspan="5">No brands loaded yet.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Step 2: Start Scraping -->
+  <div class="card">
+    <h2><span class="step-num">2</span> Start Extraction</h2>
+
+    <div class="toolbar">
+      <button class="btn btn-green" id="btnStart" disabled>Start Scraping Selected Brands</button>
+      <span class="spinner" id="scrapeSpinner"></span>
+      <button class="btn btn-ghost btn-sm" id="btnStop" disabled>Stop</button>
+    </div>
+
+    <div class="notice" id="scrapeNotice"></div>
+
+    <!-- Progress -->
+    <div id="progressSection" style="display:none">
+      <div class="progress-grid">
+        <div>
+          <div class="stat-label">Overall Progress</div>
+          <div class="stat-value" id="statProgress">0%</div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="overallBar" style="width:0%"></div>
+          </div>
+        </div>
+        <div>
+          <div class="stat-label">Current Brand Progress</div>
+          <div class="stat-value" id="statBrand">—</div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill green" id="brandBar" style="width:0%"></div>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Devices Done</div>
+          <div class="stat-value"><span id="statDone">0</span> / <span id="statTotal">?</span></div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-label">Current Device</div>
+          <div class="stat-value" id="statCurrent" style="font-size:0.85rem;font-weight:500;">—</div>
+        </div>
+      </div>
+
+      <div style="font-size:0.75rem;color:var(--muted);margin-bottom:0.4rem;text-transform:uppercase;letter-spacing:0.05em;">Log</div>
+      <div class="console-log" id="consoleLog"></div>
+    </div>
+  </div>
+
+  <!-- Step 3: Completed Brands -->
+  <div class="card" id="completedCard" style="display:none">
+    <h2><span class="step-num">3</span> Completed Brands</h2>
+    <div class="completed-list" id="completedList"></div>
+    <div style="margin-top:1rem">
+      <a class="btn btn-blue" href="/brands">View All Scraped Data →</a>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  // ── State ────────────────────────────────────────────────────────────────
+  let allBrands = [];
+  let scrapedCounts = {}; // brand_name -> device count already in CSV
+  let pollInterval = null;
+
+  // ── Elements ─────────────────────────────────────────────────────────────
+  const btnScan        = document.getElementById('btnScan');
+  const btnClearCache  = document.getElementById('btnClearCache');
+  const scanSpinner    = document.getElementById('scanSpinner');
+  const scanNotice     = document.getElementById('scanNotice');
+  const selToolbar     = document.getElementById('selectionToolbar');
+  const tableWrap      = document.getElementById('brandsTableWrap');
+  const brandsBody     = document.getElementById('brandsBody');
+  const brandSearch    = document.getElementById('brandSearch');
+  const btnSelectAll   = document.getElementById('btnSelectAll');
+  const btnDeselectAll = document.getElementById('btnDeselectAll');
+  const selectedCount  = document.getElementById('selectedCount');
+  const btnStart       = document.getElementById('btnStart');
+  const btnStop        = document.getElementById('btnStop');
+  const scrapeSpinner  = document.getElementById('scrapeSpinner');
+  const scrapeNotice   = document.getElementById('scrapeNotice');
+  const progressSection= document.getElementById('progressSection');
+  const statProgress   = document.getElementById('statProgress');
+  const statBrand      = document.getElementById('statBrand');
+  const overallBar     = document.getElementById('overallBar');
+  const brandBar       = document.getElementById('brandBar');
+  const statDone       = document.getElementById('statDone');
+  const statTotal      = document.getElementById('statTotal');
+  const statCurrent    = document.getElementById('statCurrent');
+  const consoleLog     = document.getElementById('consoleLog');
+  const completedCard  = document.getElementById('completedCard');
+  const completedList  = document.getElementById('completedList');
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+  function notice(el, msg, type) {
+    el.textContent = msg;
+    el.className = 'notice show ' + (type || 'info');
+  }
+  function hideNotice(el) { el.className = 'notice'; }
+
+  function log(msg, cls) {
+    const line = document.createElement('div');
+    line.className = 'log-line' + (cls ? ' ' + cls : '');
+    line.textContent = '[' + new Date().toLocaleTimeString() + '] ' + msg;
+    consoleLog.appendChild(line);
+    consoleLog.scrollTop = consoleLog.scrollHeight;
+  }
+
+  function updateSelectedCount() {
+    const n = document.querySelectorAll('.brand-chk:checked').length;
+    selectedCount.textContent = n + ' selected';
+    btnStart.disabled = n === 0;
+  }
+
+  // ── Render brands table ───────────────────────────────────────────────────
+  function renderBrands(brands) {
+    const q = brandSearch.value.toLowerCase();
+    const filtered = brands.filter(b => b.name.toLowerCase().includes(q));
+
+    if (filtered.length === 0) {
+      brandsBody.innerHTML = '<tr class="empty-row"><td colspan="5">No brands match the search.</td></tr>';
+      return;
+    }
+
+    brandsBody.innerHTML = filtered.map(b => {
+      const scraped = scrapedCounts[b.name] || 0;
+      const pill = scraped > 0
+        ? `<span class="pill pill-green">✓ ${scraped} scraped</span>`
+        : `<span class="pill pill-blue">Not scraped</span>`;
+      return `<tr>
+        <td><input type="checkbox" class="brand-chk" data-url="${b.url}" data-name="${b.name}" onchange="updateSelectedCount()"/></td>
+        <td class="brand-name-cell">${b.name}</td>
+        <td><span class="count-badge">${b.device_count}</span></td>
+        <td>${pill}</td>
+        <td><a href="/brand?name=${encodeURIComponent(b.name)}" class="btn btn-ghost btn-sm" target="_blank">Browse →</a></td>
+      </tr>`;
+    }).join('');
+  }
+
+  // ── Scan brands ───────────────────────────────────────────────────────────
+  btnScan.addEventListener('click', async () => {
+    btnScan.disabled = true;
+    btnScan.textContent = 'Scanning…';
+    scanSpinner.classList.add('show');
+    hideNotice(scanNotice);
+
+    try {
+      const res = await fetch('/api/scan-brands');
+      const data = await res.json();
+      if (data.status !== 'ok') throw new Error(data.message || 'Failed');
+
+      allBrands = data.brands;
+
+      // Also fetch how many devices already scraped per brand
+      await refreshScrapedCounts();
+
+      renderBrands(allBrands);
+      selToolbar.style.display = 'flex';
+      tableWrap.style.display = '';
+      notice(scanNotice, `Loaded ${allBrands.length} brands.`, 'ok');
+    } catch (e) {
+      notice(scanNotice, 'Error: ' + e.message, 'error');
+    } finally {
+      btnScan.disabled = false;
+      btnScan.textContent = 'Refresh Brands';
+      scanSpinner.classList.remove('show');
+    }
+  });
+
+  async function refreshScrapedCounts() {
+    try {
+      // Read brands_devices.csv summary via the brands page JSON
+      const res = await fetch('/api/scraped-counts');
+      if (res.ok) {
+        const d = await res.json();
+        scrapedCounts = d.counts || {};
+      }
+    } catch (_) {}
+  }
+
+  btnClearCache.addEventListener('click', async () => {
+    await fetch('/api/clear-cache', { method: 'POST' });
+    notice(scanNotice, 'Cache cleared. Click Scan Brands to fetch fresh data.', 'info');
+    scanNotice.style.display = 'flex';
+  });
+
+  brandSearch.addEventListener('input', () => renderBrands(allBrands));
+
+  btnSelectAll.addEventListener('click', () => {
+    document.querySelectorAll('.brand-chk').forEach(c => c.checked = true);
+    updateSelectedCount();
+  });
+
+  btnDeselectAll.addEventListener('click', () => {
+    document.querySelectorAll('.brand-chk').forEach(c => c.checked = false);
+    updateSelectedCount();
+  });
+
+  // ── Start scraping ────────────────────────────────────────────────────────
+  btnStart.addEventListener('click', async () => {
+    const selected = Array.from(document.querySelectorAll('.brand-chk:checked'))
+      .map(c => ({ url: c.dataset.url, name: c.dataset.name }));
+
+    if (selected.length === 0) return;
+
+    btnStart.disabled = true;
+    btnStop.disabled = false;
+    scrapeSpinner.classList.add('show');
+    progressSection.style.display = '';
+    hideNotice(scrapeNotice);
+    consoleLog.innerHTML = '';
+    log('Starting scrape for ' + selected.length + ' brand(s)…');
+
+    // Kick off each brand sequentially via /api/scrape-brand
+    // For simplicity, we start the first one and poll; the worker queues the rest.
+    // Actually send all brands one at a time — the server processes one thread.
+    for (const brand of selected) {
+      log('Queuing: ' + brand.name);
+      try {
+        const res = await fetch('/api/scrape-brand', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(brand)
+        });
+        const d = await res.json();
+        if (d.status === 'started') {
+          log('Scraping ' + brand.name + '…', 'ok');
+          await waitForScrapeComplete();
+          addCompletedBrand(brand.name);
+        }
+      } catch (e) {
+        log('Error on ' + brand.name + ': ' + e.message, 'err');
+      }
+    }
+
+    scrapeSpinner.classList.remove('show');
+    btnStart.disabled = false;
+    btnStop.disabled = true;
+    await checkDbStatus();  // refresh counts after scrape
+    notice(scrapeNotice, 'All selected brands scraped. Click "View Scraped Data" to browse results.', 'ok');
+    completedCard.style.display = '';
+    await refreshScrapedCounts();
+    renderBrands(allBrands);
+  });
+
+  btnStop.addEventListener('click', () => {
+    // Stopping is handled by the server finishing the current device.
+    // We just stop polling by clearing interval.
+    clearInterval(pollInterval);
+    log('Stop requested — will finish current device.', 'err');
+    btnStop.disabled = true;
+    scrapeSpinner.classList.remove('show');
+  });
+
+  // ── Poll until scrape done ────────────────────────────────────────────────
+  function waitForScrapeComplete() {
+    return new Promise(resolve => {
+      pollInterval = setInterval(async () => {
+        try {
+          const res = await fetch('/api/status');
+          const s = await res.json();
+
+          overallBar.style.width = (s.progress || 0) + '%';
+          statProgress.textContent = (s.progress || 0).toFixed(0) + '%';
+          statDone.textContent = s.done || 0;
+          statTotal.textContent = s.total || '?';
+          statCurrent.textContent = s.current || '—';
+          statBrand.textContent = s.message || '—';
+
+          if (s.message && s.message !== consoleLog.dataset.last) {
+            log(s.message);
+            consoleLog.dataset.last = s.message;
+          }
+
+          if (!s.running) {
+            clearInterval(pollInterval);
+            overallBar.style.width = '100%';
+            statProgress.textContent = '100%';
+            resolve();
+          }
+        } catch (e) {
+          clearInterval(pollInterval);
+          resolve();
+        }
+      }, 1000);
+    });
+  }
+
+  function addCompletedBrand(name) {
+    completedCard.style.display = '';
+    const item = document.createElement('div');
+    item.className = 'completed-item';
+    item.innerHTML = `<span class="brand-tag">${name}</span><span class="pill pill-green">Done</span>`;
+    completedList.appendChild(item);
+  }
+
+  // ── DB status badge ───────────────────────────────────────────────────────
+  async function checkDbStatus() {
+    const badge = document.getElementById('dbBadge');
+    const text  = document.getElementById('dbBadgeText');
+    try {
+      const res = await fetch('/api/db-status');
+      const d   = await res.json();
+      badge.classList.remove('connected', 'error');
+      if (d.connected) {
+        badge.classList.add('connected');
+        const c = d.counts || {};
+        text.textContent = `DB ✓  ${c.brands||0}B / ${c.devices||0}D`;
+        badge.title = `MySQL connected — brands: ${c.brands||0}, devices: ${c.devices||0}, specs: ${c.device_specs||0}, pictures: ${c.device_pictures||0}`;
+      } else {
+        badge.classList.add('error');
+        text.textContent = 'DB ✗';
+        badge.title = d.message || 'MySQL not connected';
+      }
+    } catch (e) {
+      badge.classList.add('error');
+      text.textContent = 'DB ✗';
+      badge.title = 'Could not reach /api/db-status';
+    }
+  }
+
+  // ── On load: check if there's already scraped data ────────────────────────
+  window.addEventListener('DOMContentLoaded', async () => {
+    checkDbStatus();
+    try {
+      const res = await fetch('/api/scraped-counts');
+      if (res.ok) {
+        const d = await res.json();
+        scrapedCounts = d.counts || {};
+        const total = Object.values(scrapedCounts).reduce((a, b) => a + b, 0);
+        if (total > 0) {
+          notice(scanNotice,
+            `${Object.keys(scrapedCounts).length} brands already scraped (${total} devices total). Click "View Scraped Data" to browse, or scan brands to scrape more.`,
+            'ok');
+        }
+        await checkDbStatus();
+      }
+    } catch (_) {}
+  });
+</script>
+</body>
+</html>
